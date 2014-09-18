@@ -1,4 +1,4 @@
-alfresco-examples
+alfresco-inboxes
 =================
 
-A collection of Alfresco customization examples
+An inboxes view for Alfresco implemented as an Aikau custom page.
