@@ -1,0 +1,9 @@
+.inboxes-inbox-item > .inboxes-inbox-item-counter {
+    float: right;
+    background-color: #eee;
+    width: 3em;
+    text-align: center;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}

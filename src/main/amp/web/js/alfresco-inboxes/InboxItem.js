@@ -3,14 +3,18 @@
  */
 
 define([
-    'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
     'dijit/_WidgetBase',
+    'alfresco/core/Core',
     'dojo/_base/declare',
     'dojo/text!./templates/InboxItem.html'
-], function (WidgetsInTemplateMixin, TemplatedMixin, WidgetBase, declare, template) {
-    return declare([WidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
+], function (TemplatedMixin, WidgetBase, Core, declare, template) {
+    return declare([WidgetBase, TemplatedMixin, Core], {
         templateString: template,
+
+        cssRequirements: [
+            {cssFile: "./css/InboxItem.css"}
+        ],
 
         postMixInProperties: function () {
             this.inherited(arguments);

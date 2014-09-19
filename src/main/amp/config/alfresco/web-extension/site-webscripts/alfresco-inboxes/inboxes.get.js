@@ -9,22 +9,42 @@
 //var services = getHeaderServices();
 //var widgets = getHeaderModel("Alfresco inboxes");
 
+var myInboxList = [
+    {
+        name: "alfresco-inboxes/InboxItem"
+    },
+    {
+        name: "alfresco-inboxes/InboxItem"
+    }
+];
+
+var myTeamList = [
+    {
+        name: "alfresco-inboxes/InboxItem"
+    },
+    {
+        name: "alfresco-inboxes/InboxItem"
+    }
+];
+
 var inboxSelection = {
     name: "alfresco/layout/VerticalWidgets",
     align: "sidebar",
-    widthPx: 340,
+    widthPx: 250,
     config: {
         widgets: [
             {
                 name: "alfresco/layout/ClassicWindow",
                 config: {
-                    title: "My inbox"
+                    title: "My inbox",
+                    widgets: myInboxList
                 }
             },
             {
                 name: "alfresco/layout/ClassicWindow",
                 config: {
-                    title: "My team"
+                    title: "My team",
+                    widgets: myTeamList
                 }
             }
         ]
