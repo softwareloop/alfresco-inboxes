@@ -13,28 +13,28 @@ var myInboxList = [
     {
         name: "alfresco-inboxes/InboxItem",
         config: {
-            title: "Drafts",
+            i18nTitle: "drafts",
             iconClass: "foundicon-paper-clip"
         }
     },
     {
         name: "alfresco-inboxes/InboxItem",
         config: {
-            title: "For my approval",
+            i18nTitle: "for.my.approval",
             iconClass: "foundicon-inbox"
         }
     },
     {
         name: "alfresco-inboxes/InboxItem",
         config: {
-            title: "Overdue",
+            i18nTitle: "overdue",
             iconClass: "foundicon-clock"
         }
     },
     {
         name: "alfresco-inboxes/InboxItem",
         config: {
-            title: "High priority",
+            i18nTitle: "high.priority",
             iconClass: "foundicon-flag"
         }
     }
@@ -44,28 +44,28 @@ var archiveList = [
     {
         name: "alfresco-inboxes/InboxItem",
         config: {
-            title: "Invoices",
+            i18nTitle: "invoices",
             iconClass: "foundicon-page"
         }
     },
     {
         name: "alfresco-inboxes/InboxItem",
         config: {
-            title: "Purchase orders",
+            i18nTitle: "purchase.orders",
             iconClass: "foundicon-left-arrow"
         }
     },
     {
         name: "alfresco-inboxes/InboxItem",
         config: {
-            title: "Quotations",
+            i18nTitle: "quotations",
             iconClass: "foundicon-right-arrow"
         }
     },
     {
         name: "alfresco-inboxes/InboxItem",
         config: {
-            title: "Marketing documents",
+            i18nTitle: "marketing.documents",
             iconClass: "foundicon-globe"
         }
     }
@@ -78,16 +78,16 @@ var inboxSelection = {
     config: {
         widgets: [
             {
-                name: "alfresco/layout/ClassicWindow",
+                name: "alfresco-inboxes/Inboxes",
                 config: {
-                    title: "My inbox",
+                    title: "my.inboxes",
                     widgets: myInboxList
                 }
             },
             {
-                name: "alfresco/layout/ClassicWindow",
+                name: "alfresco-inboxes/Inboxes",
                 config: {
-                    title: "Archive",
+                    title: "archive",
                     widgets: archiveList
                 }
             }

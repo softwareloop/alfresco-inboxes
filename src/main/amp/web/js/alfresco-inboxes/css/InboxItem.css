@@ -27,17 +27,17 @@
 /* hover effect */
 
 .inboxes-inbox-item:hover {
-    background-color: #ffe;
+    background-color: #ffd;
 }
 
 /* selected item */
 
 .inboxes-inbox-item.inboxes-selected {
-    background-color: #789;
+    background-color: #798;
 }
 
 .inboxes-inbox-item.inboxes-selected .inboxes-inbox-item-counter {
-    background-color: #456;
+    background-color: #465;
 }
 
 .inboxes-inbox-item.inboxes-selected .inboxes-inbox-item-text > a,

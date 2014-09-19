@@ -12,10 +12,16 @@ define([
     return declare([WidgetBase, TemplatedMixin, Core], {
         templateString: template,
 
+        i18nRequirements: [
+            {i18nFile: "./i18n/alfresco-inboxes.properties"}
+        ],
+
         cssRequirements: [
             {cssFile: "./css/InboxItem.css"},
             {cssFile: "/components/alfresco-inboxes/zurb-foundation-icons/general_foundicons.css"}
         ],
+
+        i18nTitle: null,
 
         title: '',
 
@@ -26,6 +32,9 @@ define([
         },
 
         buildRendering: function () {
+            if (this.i18nTitle) {
+                this.title = this.message(this.i18nTitle);
+            }
             this.inherited(arguments);
         },
 
