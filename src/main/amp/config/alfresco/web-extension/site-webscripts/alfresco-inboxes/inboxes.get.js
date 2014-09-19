@@ -11,19 +11,63 @@
 
 var myInboxList = [
     {
-        name: "alfresco-inboxes/InboxItem"
+        name: "alfresco-inboxes/InboxItem",
+        config: {
+            title: "Drafts",
+            iconClass: "foundicon-paper-clip"
+        }
     },
     {
-        name: "alfresco-inboxes/InboxItem"
+        name: "alfresco-inboxes/InboxItem",
+        config: {
+            title: "For my approval",
+            iconClass: "foundicon-inbox"
+        }
+    },
+    {
+        name: "alfresco-inboxes/InboxItem",
+        config: {
+            title: "Overdue",
+            iconClass: "foundicon-clock"
+        }
+    },
+    {
+        name: "alfresco-inboxes/InboxItem",
+        config: {
+            title: "High priority",
+            iconClass: "foundicon-flag"
+        }
     }
 ];
 
-var myTeamList = [
+var archiveList = [
     {
-        name: "alfresco-inboxes/InboxItem"
+        name: "alfresco-inboxes/InboxItem",
+        config: {
+            title: "Invoices",
+            iconClass: "foundicon-page"
+        }
     },
     {
-        name: "alfresco-inboxes/InboxItem"
+        name: "alfresco-inboxes/InboxItem",
+        config: {
+            title: "Purchase orders",
+            iconClass: "foundicon-left-arrow"
+        }
+    },
+    {
+        name: "alfresco-inboxes/InboxItem",
+        config: {
+            title: "Quotations",
+            iconClass: "foundicon-right-arrow"
+        }
+    },
+    {
+        name: "alfresco-inboxes/InboxItem",
+        config: {
+            title: "Marketing documents",
+            iconClass: "foundicon-globe"
+        }
     }
 ];
 
@@ -43,8 +87,8 @@ var inboxSelection = {
             {
                 name: "alfresco/layout/ClassicWindow",
                 config: {
-                    title: "My team",
-                    widgets: myTeamList
+                    title: "Archive",
+                    widgets: archiveList
                 }
             }
         ]

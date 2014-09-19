@@ -1,9 +1,47 @@
-.inboxes-inbox-item > .inboxes-inbox-item-counter {
-    float: right;
-    background-color: #eee;
-    width: 3em;
-    text-align: center;
+.inboxes-inbox-item {
+    padding: 2px 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
+}
+
+.inboxes-inbox-item .inboxes-inbox-item-counter {
+    float: right;
+    margin-top: 1px;
+    background-color: #eee;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.inboxes-inbox-item .inboxes-inbox-item-counter > a {
+    display: inline-block;
+    width: 3em;
+    text-align: center;
+}
+
+.inboxes-inbox-item .inboxes-inbox-item-icon {
+    vertical-align: middle;
+}
+
+/* hover effect */
+
+.inboxes-inbox-item:hover {
+    background-color: #ffe;
+}
+
+/* selected item */
+
+.inboxes-inbox-item.inboxes-selected {
+    background-color: #789;
+}
+
+.inboxes-inbox-item.inboxes-selected .inboxes-inbox-item-counter {
+    background-color: #456;
+}
+
+.inboxes-inbox-item.inboxes-selected .inboxes-inbox-item-text > a,
+.inboxes-inbox-item.inboxes-selected .inboxes-inbox-item-counter > a {
+    color: white;
+    font-weight: bold;
 }

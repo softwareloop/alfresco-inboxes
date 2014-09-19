@@ -13,8 +13,13 @@ define([
         templateString: template,
 
         cssRequirements: [
-            {cssFile: "./css/InboxItem.css"}
+            {cssFile: "./css/InboxItem.css"},
+            {cssFile: "/components/alfresco-inboxes/zurb-foundation-icons/general_foundicons.css"}
         ],
+
+        title: '',
+
+        iconClass: '',
 
         postMixInProperties: function () {
             this.inherited(arguments);
