@@ -1,0 +1,8 @@
+<webscript>
+    <shortname>Alfresco Inboxes</shortname>
+    <description>An inboxes view for Alfresco implemented as an Aikau custom
+        page.
+    </description>
+    <family>Aikau</family>
+    <url>/inboxes</url>
+</webscript>
