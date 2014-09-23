@@ -1,0 +1,19 @@
+.inboxes-inboxes {
+    margin-bottom: 20px;
+}
+
+.inboxes-inboxes .inboxes-inboxes-title {
+    border-top: 1px solid grey;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    padding: 6px 12px;
+    font-size: 130%;
+    background-color: #eee;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.inboxes-inboxes .inboxes-inboxes-content {
+    border: 1px solid grey;
+    padding: 6px 12px;
+}

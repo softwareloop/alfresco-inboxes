@@ -1,7 +1,5 @@
 .inboxes-inbox-item {
     padding: 2px 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
     border-radius: 3px;
 }
 
@@ -9,8 +7,6 @@
     float: right;
     margin-top: 1px;
     background-color: #eee;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
     border-radius: 3px;
 }
 

@@ -9,6 +9,13 @@
 //var services = getHeaderServices();
 //var widgets = getHeaderModel("Alfresco inboxes");
 
+var cs = new XML(config.script);
+var bla = cs.groups.group;
+var current;
+for (current in bla) {
+    logger.log("Iterating: " + bla[current].title);
+}
+
 var myInboxList = [
     {
         name: "alfresco-inboxes/InboxItem",
@@ -73,9 +80,8 @@ var archiveList = [
 
 var inboxSelection = {
     name: "alfresco/layout/VerticalWidgets",
-    align: "sidebar",
-    widthPx: 250,
     config: {
+        width: "30%",
         widgets: [
             {
                 name: "alfresco-inboxes/Inboxes",
@@ -107,7 +113,11 @@ var main = {
                     widgets: [
                         inboxSelection,
                         {
-                            name: "alfresco-inboxes/TemplateWidget"
+                            name: "alfresco/buttons/AlfButton",
+                            config: {
+                                width: "70%",
+                                label: "Hello!"
+                            }
                         }
                     ]
                 }
@@ -115,6 +125,7 @@ var main = {
         ]
     }
 };
+
 
 model.jsonModel = {
     widgets: [main]
