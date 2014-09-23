@@ -23,8 +23,6 @@ define([
             {cssFile: "/components/alfresco-inboxes/zurb-foundation-icons/general_foundicons.css"}
         ],
 
-        i18nTitle: null,
-
         title: '',
 
         iconClass: '',
@@ -34,8 +32,8 @@ define([
         },
 
         buildRendering: function () {
-            if (this.i18nTitle) {
-                this.title = this.message(this.i18nTitle);
+            if (this.title) {
+                this.title = this.message(this.title);
             }
             this.inherited(arguments);
         },

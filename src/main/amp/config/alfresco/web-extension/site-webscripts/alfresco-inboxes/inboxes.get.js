@@ -9,97 +9,44 @@
 //var services = getHeaderServices();
 //var widgets = getHeaderModel("Alfresco inboxes");
 
-var cs = new XML(config.script);
-var bla = cs.groups.group;
-var current;
-for (current in bla) {
-    logger.log("Iterating: " + bla[current].title);
-}
-
-var myInboxList = [
-    {
-        name: "alfresco-inboxes/InboxItem",
-        config: {
-            i18nTitle: "drafts",
-            iconClass: "foundicon-paper-clip"
-        }
-    },
-    {
-        name: "alfresco-inboxes/InboxItem",
-        config: {
-            i18nTitle: "for.my.approval",
-            iconClass: "foundicon-inbox"
-        }
-    },
-    {
-        name: "alfresco-inboxes/InboxItem",
-        config: {
-            i18nTitle: "overdue",
-            iconClass: "foundicon-clock"
-        }
-    },
-    {
-        name: "alfresco-inboxes/InboxItem",
-        config: {
-            i18nTitle: "high.priority",
-            iconClass: "foundicon-flag"
-        }
-    }
-];
-
-var archiveList = [
-    {
-        name: "alfresco-inboxes/InboxItem",
-        config: {
-            i18nTitle: "invoices",
-            iconClass: "foundicon-page"
-        }
-    },
-    {
-        name: "alfresco-inboxes/InboxItem",
-        config: {
-            i18nTitle: "purchase.orders",
-            iconClass: "foundicon-left-arrow"
-        }
-    },
-    {
-        name: "alfresco-inboxes/InboxItem",
-        config: {
-            i18nTitle: "quotations",
-            iconClass: "foundicon-right-arrow"
-        }
-    },
-    {
-        name: "alfresco-inboxes/InboxItem",
-        config: {
-            i18nTitle: "marketing.documents",
-            iconClass: "foundicon-globe"
-        }
-    }
-];
+var webscriptConfig = new XML(config.script);
 
 var inboxSelection = {
     name: "alfresco/layout/VerticalWidgets",
     config: {
         width: "30%",
-        widgets: [
-            {
-                name: "alfresco-inboxes/Inboxes",
-                config: {
-                    title: "my.inboxes",
-                    widgets: myInboxList
-                }
-            },
-            {
-                name: "alfresco-inboxes/Inboxes",
-                config: {
-                    title: "archive",
-                    widgets: archiveList
-                }
-            }
-        ]
+        widgets: []
     }
 };
+var groups = webscriptConfig.group;
+var group;
+var index;
+var index2;
+var widget;
+var groupInboxes;
+var groupInbox;
+for (index in groups) {
+    group = groups[index];
+    widget = {
+        name: "alfresco-inboxes/Inboxes",
+        config: {
+            title: String(group.title),
+            widgets: []
+        }
+    };
+    inboxSelection.config.widgets.push(widget);
+    groupInboxes = group.inbox;
+    for (index2 in groupInboxes) {
+        groupInbox = groupInboxes[index2];
+        widget.config.widgets.push({
+            name: "alfresco-inboxes/InboxItem",
+                config: {
+                    title: String(groupInbox.title),
+                    iconClass: String(groupInbox.iconClass)
+                }
+        });
+    }
+}
 
 var main = {
     name: "alfresco/layout/VerticalWidgets",
