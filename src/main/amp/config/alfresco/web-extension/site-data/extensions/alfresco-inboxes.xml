@@ -10,8 +10,8 @@
                     <web-framework>
                         <dojo-pages>
                             <packages>
-                                <package name="alfresco-inboxes"
-                                         location="js/alfresco-inboxes"/>
+                                <package name="softwareloop"
+                                         location="js/softwareloop"/>
                             </packages>
                         </dojo-pages>
                     </web-framework>

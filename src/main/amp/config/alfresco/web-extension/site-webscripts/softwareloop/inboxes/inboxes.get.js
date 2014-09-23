@@ -28,7 +28,7 @@ var groupInbox;
 for (index in groups) {
     group = groups[index];
     widget = {
-        name: "alfresco-inboxes/Inboxes",
+        name: "softwareloop/inboxes/Inboxes",
         config: {
             title: String(group.title),
             widgets: []
@@ -39,11 +39,11 @@ for (index in groups) {
     for (index2 in groupInboxes) {
         groupInbox = groupInboxes[index2];
         widget.config.widgets.push({
-            name: "alfresco-inboxes/InboxItem",
-                config: {
-                    title: String(groupInbox.title),
-                    iconClass: String(groupInbox.iconClass)
-                }
+            name: "softwareloop/inboxes/InboxItem",
+            config: {
+                title: String(groupInbox.title),
+                iconClass: String(groupInbox.iconClass)
+            }
         });
     }
 }

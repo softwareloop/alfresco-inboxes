@@ -11,7 +11,7 @@ define([
         templateString: template,
 
         i18nRequirements: [
-            {i18nFile: "./i18n/alfresco-inboxes.properties"}
+            {i18nFile: "./i18n/messages.properties"}
         ],
 
         cssRequirements: [

@@ -15,12 +15,12 @@ define([
         templateString: template,
 
         i18nRequirements: [
-            {i18nFile: "./i18n/alfresco-inboxes.properties"}
+            {i18nFile: "./i18n/messages.properties"}
         ],
 
         cssRequirements: [
             {cssFile: "./css/InboxItem.css"},
-            {cssFile: "/components/alfresco-inboxes/zurb-foundation-icons/general_foundicons.css"}
+            {cssFile: "/components/softwareloop/inboxes/zurb-foundation-icons/general_foundicons.css"}
         ],
 
         title: '',
