@@ -1,40 +1,14 @@
 <inboxes>
-    <group>
-        <title>my.inboxes</title>
-        <inbox>
-            <title>drafts</title>
-            <iconClass>foundicon-paper-clip</iconClass>
-        </inbox>
-        <inbox>
-            <title>for.my.approval</title>
-            <iconClass>foundicon-inbox</iconClass>
-        </inbox>
-        <inbox>
-            <title>overdue</title>
-            <iconClass>foundicon-clock</iconClass>
-        </inbox>
-        <inbox>
-            <title>high.priority</title>
-            <iconClass>foundicon-flag</iconClass>
-        </inbox>
+    <group id="my.inboxes">
+        <inbox id="drafts" iconClass="foundicon-paper-clip"/>
+        <inbox id="for.my.approval" iconClass="foundicon-inbox"/>
+        <inbox id="overdue" iconClass="foundicon-clock"/>
+        <inbox id="high.priority" iconClass="foundicon-flag"/>
     </group>
-    <group>
-        <title>archive</title>
-        <inbox>
-            <title>invoices</title>
-            <iconClass>foundicon-page</iconClass>
-        </inbox>
-        <inbox>
-            <title>purchase.orders</title>
-            <iconClass>foundicon-left-arrow</iconClass>
-        </inbox>
-        <inbox>
-            <title>quotations</title>
-            <iconClass>foundicon-right-arrow</iconClass>
-        </inbox>
-        <inbox>
-            <title>marketing.documents</title>
-            <iconClass>foundicon-globe</iconClass>
-        </inbox>
+    <group id="archive">
+        <inbox id="invoices" iconClass="foundicon-page"/>
+        <inbox id="purchase.orders" iconClass="foundicon-left-arrow"/>
+        <inbox id="quotations" iconClass="foundicon-right-arrow"/>
+        <inbox id="marketing.documents" iconClass="foundicon-globe"/>
     </group>
 </inboxes>

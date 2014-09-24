@@ -30,7 +30,7 @@ for (index in groups) {
     widget = {
         name: "softwareloop/inboxes/Inboxes",
         config: {
-            title: String(group.title),
+            id: String(group.@id),
             widgets: []
         }
     };
@@ -41,8 +41,8 @@ for (index in groups) {
         widget.config.widgets.push({
             name: "softwareloop/inboxes/InboxItem",
             config: {
-                title: String(groupInbox.title),
-                iconClass: String(groupInbox.iconClass)
+                id: String(groupInbox.@id),
+                iconClass: String(groupInbox.@iconClass)
             }
         });
     }

@@ -32,8 +32,8 @@ define([
         },
 
         buildRendering: function () {
-            if (this.title) {
-                this.title = this.message(this.title);
+            if (this.id) {
+                this.title = this.message(this.id);
             }
             this.inherited(arguments);
         },
