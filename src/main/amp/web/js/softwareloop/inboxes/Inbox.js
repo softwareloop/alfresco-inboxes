@@ -9,8 +9,10 @@ define([
     'alfresco/core/Core',
     'dojo/_base/declare',
     'dojo/text!./templates/Inbox.html',
-    "dojo/request/xhr"
-], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr) {
+    "dojo/request/xhr",
+    "dojo/dom-class",
+    "dijit/registry"
+], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry) {
     return declare([WidgetBase, TemplatedMixin, Core, AttachMixin], {
         templateString: template,
 
@@ -32,6 +34,19 @@ define([
                 this.title = this.message(this.id);
             }
             this.inherited(arguments);
+        },
+
+        unselect: function () {
+            domClass.remove(this.inboxNode, "inboxes-selected");
+        },
+
+        select: function () {
+            domClass.add(this.inboxNode, "inboxes-selected");
+            var parent = registry.getEnclosingWidget(this.inboxNode.parentNode);
+            var fullTitle = parent.title + " \u00bb " + this.title;
+            this.alfPublish("ALF_UPDATE_PAGE_TITLE", {
+                title: fullTitle
+            });
         },
 
         inboxClick: function () {

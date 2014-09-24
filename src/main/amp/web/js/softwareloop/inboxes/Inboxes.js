@@ -9,13 +9,13 @@ define([
     "dojo/topic",
     "dojo/hash",
     "dojo/_base/lang",
-    "dojo/_base/array",
-    "dojo/dom",
-    "dojo/query",
-    "dojo/dom-class"
-], function (ProcessWidgets, declare, template, topic, hash, lang, array, dom, query, domClass) {
+    "dijit/registry",
+    "dojo/query"
+], function (ProcessWidgets, declare, template, topic, hash, lang, registry, query) {
     return declare([ProcessWidgets], {
         templateString: template,
+
+        currentInbox: null,
 
         buildRendering: function () {
             topic.subscribe(
@@ -39,18 +39,17 @@ define([
         },
 
         hashChangeHandler: function (hash) {
-            // reset previously selected inbox
-            var nodes = query(".inboxes-inbox.inboxes-selected", this.containerNode);
-            array.forEach(nodes, function (node) {
-                domClass.remove(node, "inboxes-selected");
-            });
+            // unselect current inbox
+            if (this.currentInbox) {
+                this.currentInbox.unselect();
+            }
 
-            // select the one that matches the hash
-            var node = dom.byId(hash);
-            if (node) {
-                domClass.add(node, "inboxes-selected");
+            // select the inbox that matches the hash
+            this.currentInbox = registry.byId(hash);
+            if (this.currentInbox) {
+                this.currentInbox.select();
             } else {
-                console.warn("Node", hash, "not found");
+                console.warn("Inbox", hash, "not found");
             }
         }
     });
