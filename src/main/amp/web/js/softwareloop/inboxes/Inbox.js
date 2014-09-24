@@ -12,8 +12,9 @@ define([
     "dojo/request/xhr",
     "dojo/dom-class",
     "dijit/registry",
-    "dojo/hash"
-], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash) {
+    "dojo/hash",
+    "dojo/html"
+], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, html) {
     return declare([WidgetBase, TemplatedMixin, Core, AttachMixin], {
         templateString: template,
 
@@ -26,9 +27,11 @@ define([
             {cssFile: "/components/softwareloop/inboxes/zurb-foundation-icons/general_foundicons.css"}
         ],
 
-        title: '',
+        title: "",
 
-        iconClass: '',
+        iconClass: "",
+
+        query: null,
 
         buildRendering: function () {
             if (this.id) {
@@ -37,13 +40,34 @@ define([
             this.inherited(arguments);
         },
 
+        postCreate: function () {
+            var url = "http://localhost:8080/share/proxy/alfresco/cmis/query";
+            var queryObject = {
+                q: this.query,
+                includeAllowableActions: false,
+                includeRelationships: false,
+                searchAllVersions: false,
+                skipCount: 0,
+                maxItems: 0
+            };
+            var _this = this;
+            xhr(url, {
+                handleAs: "xml",
+                query: queryObject
+            }).then(function (data) {
+                html.set(_this.counterNode, "OK");
+            }, function (err) {
+                html.set(_this.counterNode, "ERR");
+            });
+        },
+
         unselect: function () {
-            domClass.remove(this.inboxNode, "inboxes-selected");
+            domClass.remove(this.domNode, "inboxes-selected");
         },
 
         select: function () {
-            domClass.add(this.inboxNode, "inboxes-selected");
-            var parent = registry.getEnclosingWidget(this.inboxNode.parentNode);
+            domClass.add(this.domNode, "inboxes-selected");
+            var parent = registry.getEnclosingWidget(this.domNode.parentNode);
             var fullTitle = parent.title + " \u00bb " + this.title;
             this.alfPublish("ALF_UPDATE_PAGE_TITLE", {
                 title: fullTitle

@@ -2,44 +2,44 @@
     <group id="my-documents">
         <inbox id="drafts" iconClass="foundicon-paper-clip">
             <query><![CDATA[
-            select cmis:name from cmis:document where cmis:name="Project Contract.pdf"
+            select cmis:name from cmis:document where IN_FOLDER('Project Contract.pdf')
             ]]></query>
         </inbox>
         <inbox id="for-my-approval" iconClass="foundicon-inbox">
             <query><![CDATA[
-            select cmis:name from cmis:document where cmis:name="Project Contract.pdf"
+            select cmis:name from cmis:document where cmis:name='Project Contract.pdf'
             ]]></query>
         </inbox>
         <inbox id="overdue" iconClass="foundicon-clock">
             <query><![CDATA[
-            select cmis:name from cmis:document where cmis:name="Project Contract.pdf"
+            select cmis:name from cmis:document where cmis:name='Project Contract.pdf'
             ]]></query>
         </inbox>
         <inbox id="high-priority" iconClass="foundicon-flag">
             <query><![CDATA[
-            select cmis:name from cmis:document where cmis:name="Project Contract.pdf"
+            select cmis:name from cmis:document where cmis:name='Project Contract.pdf'
             ]]></query>
         </inbox>
     </group>
     <group id="archive">
         <inbox id="invoices" iconClass="foundicon-page">
             <query><![CDATA[
-            select cmis:name from cmis:document where cmis:name="Project Contract.pdf"
+            select cmis:name from cmis:document where cmis:name='Project Contract.pdf'
             ]]></query>
         </inbox>
         <inbox id="purchase-orders" iconClass="foundicon-left-arrow">
             <query><![CDATA[
-            select cmis:name from cmis:document where cmis:name="Project Contract.pdf"
+            select cmis:name from cmis:document where cmis:name='Project Contract.pdf'
             ]]></query>
         </inbox>
         <inbox id="quotations" iconClass="foundicon-right-arrow">
             <query><![CDATA[
-            select cmis:name from cmis:document where cmis:name="Project Contract.pdf"
+            select cmis:name from cmis:document where cmis:name='Project Contract.pdf'
             ]]></query>
         </inbox>
         <inbox id="marketing-documents" iconClass="foundicon-globe">
             <query><![CDATA[
-            select cmis:name from cmis:document where cmis:name="Project Contract.pdf"
+            select cmis:name from cmis:document where cmis:name='Project Contract.pdf'
             ]]></query>
         </inbox>
     </group>

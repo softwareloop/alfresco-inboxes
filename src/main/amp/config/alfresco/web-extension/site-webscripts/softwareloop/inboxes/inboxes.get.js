@@ -35,7 +35,8 @@ for (index in groups) {
             name: "softwareloop/inboxes/Inbox",
             config: {
                 id: String(groupInbox.@id),
-                iconClass: String(groupInbox.@iconClass)
+                iconClass: String(groupInbox.@iconClass),
+                query: String(groupInbox.query)
             }
         });
     }
