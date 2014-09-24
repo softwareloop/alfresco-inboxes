@@ -1,14 +1,14 @@
 <inboxes>
-    <group id="my.inboxes">
+    <group id="my-inboxes">
         <inbox id="drafts" iconClass="foundicon-paper-clip"/>
-        <inbox id="for.my.approval" iconClass="foundicon-inbox"/>
+        <inbox id="for-my-approval" iconClass="foundicon-inbox"/>
         <inbox id="overdue" iconClass="foundicon-clock"/>
-        <inbox id="high.priority" iconClass="foundicon-flag"/>
+        <inbox id="high-priority" iconClass="foundicon-flag"/>
     </group>
     <group id="archive">
         <inbox id="invoices" iconClass="foundicon-page"/>
-        <inbox id="purchase.orders" iconClass="foundicon-left-arrow"/>
+        <inbox id="purchase-orders" iconClass="foundicon-left-arrow"/>
         <inbox id="quotations" iconClass="foundicon-right-arrow"/>
-        <inbox id="marketing.documents" iconClass="foundicon-globe"/>
+        <inbox id="marketing-documents" iconClass="foundicon-globe"/>
     </group>
 </inboxes>
