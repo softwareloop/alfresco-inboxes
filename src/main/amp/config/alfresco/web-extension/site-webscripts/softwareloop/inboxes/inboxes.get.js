@@ -12,7 +12,7 @@
 var webscriptConfig = new XML(config.script);
 
 var inboxes = {
-    name: "alfresco/layout/VerticalWidgets",
+    name: "softwareloop/inboxes/Inboxes",
     config: {
         width: "30%",
         widgets: []
