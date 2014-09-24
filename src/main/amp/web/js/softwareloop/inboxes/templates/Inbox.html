@@ -1,11 +1,9 @@
-<div id="${id}" class="inboxes-inbox" data-dojo-attach-point="inboxNode">
-<div class="inboxes-inbox-counter">
-        <a href="#${id}">2</a>
-    </div>
+<div id="${id}" class="inboxes-inbox"
+     data-dojo-attach-point="inboxNode"
+     data-dojo-attach-event="click:clickHandler">
+    <div class="inboxes-inbox-counter">2</div>
     <div class="inboxes-inbox-text">
-        <a href="#${id}">
-            <i class="inboxes-inbox-icon ${iconClass}"></i>
-            <span class="inboxes-inbox-title">${title}</span>
-        </a>
+        <i class="inboxes-inbox-icon ${iconClass}"></i>
+        <span class="inboxes-inbox-title">${title}</span>
     </div>
 </div>

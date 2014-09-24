@@ -30,11 +30,18 @@ define([
             if (hash()) {
                 topic.publish("/dojo/hashchange", hash());
             } else {
-                var nodes = query(".inboxes-inbox", this.containerNode);
-                if (nodes.length > 0) {
-                    var inboxId = nodes[0].getAttribute('id');
-                    hash(inboxId);
-                }
+                this.hashFirstInbox();
+            }
+        },
+
+        hashFirstInbox: function () {
+            var nodes = query(".inboxes-inbox", this.containerNode);
+            if (nodes.length == 0) {
+                console.log("No inboxes found");
+                return null;
+            } else {
+                var inboxId = nodes[0].getAttribute('id');
+                hash(inboxId);
             }
         },
 
@@ -49,7 +56,7 @@ define([
             if (this.currentInbox) {
                 this.currentInbox.select();
             } else {
-                console.warn("Inbox", hash, "not found");
+                this.hashFirstInbox();
             }
         }
     });
