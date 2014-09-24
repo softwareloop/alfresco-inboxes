@@ -1,7 +1,7 @@
 alfresco-inboxes
 =================
 
-An inboxes view for Alfresco implemented using the Aikau framework.
+An inbox view for Alfresco implemented using the Aikau framework.
 
 Licensed under the LGPL v3 license (see LICENSE).
 

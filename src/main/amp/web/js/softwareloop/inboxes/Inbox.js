@@ -12,9 +12,8 @@ define([
     "dojo/request/xhr",
     "dojo/dom-class",
     "dijit/registry",
-    "dojo/hash",
-    "dojo/html"
-], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, html) {
+    "dojo/hash"
+], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash) {
     return declare([WidgetBase, TemplatedMixin, Core, AttachMixin], {
         templateString: template,
 
@@ -41,7 +40,7 @@ define([
         },
 
         postCreate: function () {
-            var url = "http://localhost:8080/share/proxy/alfresco/cmis/query";
+            var url = Alfresco.constants.PROXY_URI + "cmis/query";
             var queryObject = {
                 q: this.query,
                 includeAllowableActions: false,
@@ -55,9 +54,10 @@ define([
                 handleAs: "xml",
                 query: queryObject
             }).then(function (data) {
-                html.set(_this.counterNode, "OK");
+                var totalResults = data.getElementsByTagName("totalResults")[0].innerHTML;
+                _this.counterNode.innerHTML = totalResults;
             }, function (err) {
-                html.set(_this.counterNode, "ERR");
+                _this.counterNode.innerHTML = "ERR";
             });
         },
 
