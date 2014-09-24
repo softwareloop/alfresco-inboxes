@@ -1,8 +1,8 @@
-.inboxes-inboxes {
+.inboxes-group {
     margin-bottom: 20px;
 }
 
-.inboxes-inboxes .inboxes-inboxes-title {
+.inboxes-group .inboxes-group-title {
     border-top: 1px solid grey;
     border-left: 1px solid grey;
     border-right: 1px solid grey;
@@ -13,7 +13,7 @@
     border-top-right-radius: 6px;
 }
 
-.inboxes-inboxes .inboxes-inboxes-content {
+.inboxes-group .inboxes-group-content {
     border: 1px solid grey;
     padding: 6px 12px;
 }

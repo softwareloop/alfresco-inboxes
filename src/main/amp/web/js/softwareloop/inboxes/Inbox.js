@@ -8,7 +8,7 @@ define([
     'dijit/_WidgetBase',
     'alfresco/core/Core',
     'dojo/_base/declare',
-    'dojo/text!./templates/InboxItem.html',
+    'dojo/text!./templates/Inbox.html',
     "dojo/request/xhr"
 ], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr) {
     return declare([WidgetBase, TemplatedMixin, Core, AttachMixin], {
@@ -19,7 +19,7 @@ define([
         ],
 
         cssRequirements: [
-            {cssFile: "./css/InboxItem.css"},
+            {cssFile: "./css/Inbox.css"},
             {cssFile: "/components/softwareloop/inboxes/zurb-foundation-icons/general_foundicons.css"}
         ],
 
@@ -27,22 +27,10 @@ define([
 
         iconClass: '',
 
-        postMixInProperties: function () {
-            this.inherited(arguments);
-        },
-
         buildRendering: function () {
             if (this.id) {
                 this.title = this.message(this.id);
             }
-            this.inherited(arguments);
-        },
-
-        postCreate: function () {
-            this.inherited(arguments);
-        },
-
-        startup: function () {
             this.inherited(arguments);
         },
 

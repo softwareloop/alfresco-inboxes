@@ -5,7 +5,7 @@
 define([
     "alfresco/core/ProcessWidgets",
     'dojo/_base/declare',
-    'dojo/text!./templates/Inboxes.html'
+    'dojo/text!./templates/Group.html'
 ], function (ProcessWidgets, declare, template) {
     return declare([ProcessWidgets], {
         templateString: template,
@@ -15,7 +15,7 @@ define([
         ],
 
         cssRequirements: [
-            {cssFile: "./css/Inboxes.css"}
+            {cssFile: "./css/Group.css"}
         ],
 
         title: '',

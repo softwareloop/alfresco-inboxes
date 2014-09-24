@@ -1,0 +1,43 @@
+.inboxes-inbox {
+    padding: 2px 3px;
+    border-radius: 3px;
+}
+
+.inboxes-inbox .inboxes-inbox-counter {
+    float: right;
+    margin-top: 1px;
+    background-color: #eee;
+    border-radius: 3px;
+}
+
+.inboxes-inbox .inboxes-inbox-counter > a {
+    display: inline-block;
+    width: 3em;
+    text-align: center;
+}
+
+.inboxes-inbox .inboxes-inbox-icon {
+    vertical-align: middle;
+}
+
+/* hover effect */
+
+.inboxes-inbox:hover {
+    background-color: #ffd;
+}
+
+/* selected inbox */
+
+.inboxes-inbox.inboxes-selected {
+    background-color: #798;
+}
+
+.inboxes-inbox.inboxes-selected .inboxes-inbox-counter {
+    background-color: #465;
+}
+
+.inboxes-inbox.inboxes-selected .inboxes-inbox-text > a,
+.inboxes-inbox.inboxes-selected .inboxes-inbox-counter > a {
+    color: white;
+    font-weight: bold;
+}
