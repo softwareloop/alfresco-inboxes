@@ -1,7 +1,7 @@
 <extension>
     <modules>
         <module>
-            <id>Example Aikau Widgets</id>
+            <id>alfresco-inboxes</id>
             <version>1.0</version>
             <auto-deploy>true</auto-deploy>
             <configurations>
@@ -17,6 +17,12 @@
                     </web-framework>
                 </config>
             </configurations>
+            <customizations>
+                <customization>
+                    <targetPackageRoot>org.alfresco.share.header</targetPackageRoot>
+                    <sourcePackageRoot>softwareloop.share.header</sourcePackageRoot>
+                </customization>
+            </customizations>
         </module>
     </modules>
 </extension>
