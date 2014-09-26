@@ -12,8 +12,9 @@ define([
     "dojo/request/xhr",
     "dojo/dom-class",
     "dijit/registry",
-    "dojo/hash"
-], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash) {
+    "dojo/hash",
+    "./Item"
+], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, Item) {
     return declare([WidgetBase, TemplatedMixin, Core, AttachMixin], {
         templateString: template,
 
@@ -40,6 +41,7 @@ define([
         },
 
         postCreate: function () {
+            this.inherited(arguments);
             var url = Alfresco.constants.PROXY_URI + "cmis/query";
             var queryObject = {
                 q: this.query,
@@ -72,6 +74,7 @@ define([
             this.alfPublish("ALF_UPDATE_PAGE_TITLE", {
                 title: fullTitle
             });
+            new Item().placeAt("results").startup();
         },
 
         clickHandler: function () {

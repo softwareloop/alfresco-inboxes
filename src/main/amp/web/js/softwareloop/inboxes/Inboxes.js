@@ -10,23 +10,32 @@ define([
     "dojo/hash",
     "dojo/_base/lang",
     "dijit/registry",
-    "dojo/query"
-], function (ProcessWidgets, declare, template, topic, hash, lang, registry, query) {
+    "dojo/query",
+    "dojo/ready"
+], function (ProcessWidgets, declare, template, topic, hash, lang, registry, query, ready) {
     return declare([ProcessWidgets], {
+        cssRequirements: [
+            {cssFile: "./css/Inboxes.css"}
+        ],
+
         templateString: template,
 
         currentInbox: null,
 
         buildRendering: function () {
+            this.inherited(arguments);
             topic.subscribe(
                 "/dojo/hashchange",
                 lang.hitch(this, this.hashChangeHandler)
             );
-            this.inherited(arguments);
         },
 
         startup: function () {
             this.inherited(arguments);
+            ready(lang.hitch(this, this.uiLoaded));
+        },
+
+        uiLoaded: function () {
             if (hash()) {
                 topic.publish("/dojo/hashchange", hash());
             } else {

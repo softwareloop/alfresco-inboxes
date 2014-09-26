@@ -11,36 +11,48 @@ var inboxes = {
         widgets: []
     }
 };
+
 var groups = webscriptConfig.group;
 var group;
 var index;
 var index2;
-var widget;
 var groupInboxes;
 var groupInbox;
+var groupWidget;
+var inboxWidget;
 for (index in groups) {
     group = groups[index];
-    widget = {
+    groupWidget = {
         name: "softwareloop/inboxes/Group",
         config: {
             id: String(group.@id),
             widgets: []
         }
     };
-    inboxes.config.widgets.push(widget);
+    inboxes.config.widgets.push(groupWidget);
     groupInboxes = group.inbox;
     for (index2 in groupInboxes) {
         groupInbox = groupInboxes[index2];
-        widget.config.widgets.push({
+        inboxWidget = {
             name: "softwareloop/inboxes/Inbox",
             config: {
                 id: String(groupInbox.@id),
                 iconClass: String(groupInbox.@iconClass),
                 query: String(groupInbox.query)
             }
-        });
+        };
+        groupWidget.config.widgets.push(inboxWidget);
     }
 }
+
+var results = {
+    name: "alfresco/layout/VerticalWidgets",
+    config: {
+        id: "results",
+        width: "70%"
+    }
+};
+
 
 model.jsonModel = {
     widgets: [
@@ -50,18 +62,11 @@ model.jsonModel = {
                 baseClass: "side-margins",
                 widgets: [
                     {
-                        id: "MY_HORIZONTAL_WIDGET_LAYOUT",
                         name: "alfresco/layout/HorizontalWidgets",
                         config: {
                             widgets: [
                                 inboxes,
-                                {
-                                    name: "alfresco/buttons/AlfButton",
-                                    config: {
-                                        width: "70%",
-                                        label: "Hello!"
-                                    }
-                                }
+                                results
                             ]
                         }
                     }

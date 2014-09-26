@@ -1,0 +1,52 @@
+.inboxes-item {
+    padding: 20px;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+
+.inboxes-item:hover {
+    background-color: #ffd;
+}
+
+.inboxes-item-show-on-hover {
+    display: none;
+}
+
+.inboxes-item:hover .inboxes-item-show-on-hover {
+    display: block;
+}
+
+.inboxes-item-tag {
+    margin-right: 0.5em;
+    padding: 1px 8px 2px;
+    font-size: 80%;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 8px;
+    background-color: #678;
+}
+
+.inboxes-item-float-right {
+    float: right;
+}
+
+.inbox-item-icon {
+    float: left;
+    width: 81px;
+    height: 81px;
+    background-color: #fed;
+}
+
+.inbox-item-description {
+    margin-left: 101px
+}
+
+.inboxes-item-line1 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+}
