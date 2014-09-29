@@ -34,21 +34,18 @@
 
 .inbox-item-icon {
     float: left;
-    width: 81px;
-    height: 81px;
-    background-color: #fed;
+    width: 100px;
+    height: 100px;
+    text-align: center;
 }
 
 .inbox-item-description {
-    min-height: 81px;
-}
-
-.inbox-item-description {
-    margin-left: 101px
+    min-height: 100px;
+    margin-left: 120px
 }
 
 .inboxes-item-line1 {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #f8f8f8;
     padding-bottom: 6px;
     margin-bottom: 6px;
 }

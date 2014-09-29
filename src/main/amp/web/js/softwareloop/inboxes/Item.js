@@ -25,8 +25,10 @@ define([
             selector: "date"
         },
 
-        cmisAttributes: {},
+        entryId: null,
+        entryAttributes: {},
 
+        previewUrl: "",
         escapedLine1: "",
         escapedLine2: "",
         escapedLine3: "",
@@ -39,6 +41,7 @@ define([
         },
 
         bindToEntry: function (entry) {
+            this.entryId = entry.getElementsByTagName("id")[0].innerHTML.substring(9);
             this.parseProperties(entry, "propertyId",
                 function (stringValue) {
                     return stringValue;
@@ -77,22 +80,26 @@ define([
                 if (valueNode && valueNode.length > 0) {
                     cmisAttributeValue = converter(valueNode[0].innerHTML);
                 }
-                this.cmisAttributes[cmisAttributeName] = cmisAttributeValue;
+                this.entryAttributes[cmisAttributeName] = cmisAttributeValue;
             }
         },
 
         composeLines: function () {
-            this.escapedLine1 = this._escapeValue(this.cmisAttributes.cmis_name);
-            this.escapedLine2 = this._escapeValue(this.cmisAttributes.cm_title);
+            this.previewUrl = Alfresco.constants.PROXY_URI +
+                "api/node/workspace/SpacesStore/" +
+                this.entryId +
+                "/content/thumbnails/doclib?c=queue&ph=true&lastModified=1"
+            this.escapedLine1 = this._escapeValue(this.entryAttributes.cmis_name);
+            this.escapedLine2 = this._escapeValue(this.entryAttributes.cm_title);
             var line3 = "Modified on " +
-                this.cmisAttributes.cmis_lastModificationDate +
+                this.entryAttributes.cmis_lastModificationDate +
                 " by " +
-                this.cmisAttributes.cmis_lastModifiedBy +
+                this.entryAttributes.cmis_lastModifiedBy +
                 " - " +
-                this.cmisAttributes.cmis_contentStreamLength;
+                this.entryAttributes.cmis_contentStreamLength;
             this.escapedLine3 = this._escapeValue(line3);
-            this.escapedLine4 = this._escapeValue(this.cmisAttributes.cm_description);
-            this.escapedTag = this._escapeValue(this.cmisAttributes.cmis_versionLabel);
+            this.escapedLine4 = this._escapeValue(this.entryAttributes.cm_description);
+            this.escapedTag = this._escapeValue(this.entryAttributes.cmis_versionLabel);
         },
 
         /* Borrowed from dojo 1.10 */
