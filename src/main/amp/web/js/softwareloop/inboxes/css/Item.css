@@ -1,10 +1,10 @@
 .inboxes-item {
-    padding: 20px 0;
-    border-bottom: 1px solid grey;
+    padding: 20px 10px;
+    border-bottom: 1px solid #eee;
 }
 
 .inboxes-item:hover {
-    background-color: #ffd;
+    background-color: #F5F5F5;
 }
 
 .inboxes-item-show-on-hover {
@@ -25,7 +25,7 @@
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 8px;
-    background-color: #678;
+    background-color: #888;
 }
 
 .inboxes-item-float-right {
@@ -44,8 +44,24 @@
     margin-left: 120px
 }
 
-.inboxes-item-line1 {
-    border-bottom: 1px solid #f8f8f8;
-    padding-bottom: 6px;
-    margin-bottom: 6px;
+.inboxes-item-line1, .inboxes-item-line2 {
+    margin-bottom: 10px;
+}
+
+.inboxes-item-button {
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    min-height: 2em;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.inboxes-item-button.inboxes-item-button-approve:hover {
+    background-color: #4eb432;
+    border-color: #888;
+}
+
+.inboxes-item-button.inboxes-item-button-reject:hover {
+    background-color: #f04e32;
+    border-color: #888;
 }

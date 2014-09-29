@@ -7,7 +7,7 @@
 .inboxes-inbox .inboxes-inbox-counter {
     float: right;
     margin-top: 1px;
-    background-color: #eee;
+    background-color: #f8f8f8;
     border-radius: 3px;
     width: 3em;
     text-align: center;
@@ -20,17 +20,21 @@
 /* hover effect */
 
 .inboxes-inbox:hover {
-    background-color: #ffd;
+    background-color: #ddeef7;
+}
+
+.inboxes-inbox:hover .inboxes-inbox-counter {
+    background-color: inherit;
 }
 
 /* selected inbox */
 
 .inboxes-inbox.inboxes-selected {
-    background-color: #798;
+    background-color: #048ec8;
     color: white;
     font-weight: bold;
 }
 
 .inboxes-inbox.inboxes-selected .inboxes-inbox-counter {
-    background-color: #465;
+    background-color: #048ec8;
 }

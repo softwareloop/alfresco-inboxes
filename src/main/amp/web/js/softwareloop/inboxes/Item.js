@@ -117,6 +117,14 @@ define([
             } else {
                 return null;
             }
+        },
+
+        approveAction: function () {
+            alert("Document approved");
+        },
+
+        rejectAction: function () {
+            alert("Document rejected");
         }
     });
 });

@@ -3,9 +3,9 @@
 }
 
 .inboxes-group .inboxes-group-title {
-    border-top: 1px solid grey;
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
     padding: 6px 12px;
     font-size: 130%;
     background-color: #eee;
@@ -14,6 +14,6 @@
 }
 
 .inboxes-group .inboxes-group-content {
-    border: 1px solid grey;
+    border: 1px solid #ccc;
     padding: 6px 12px;
 }

@@ -3,8 +3,12 @@
     <div class="inbox-item-description">
         <div class="inboxes-item-line1">
             <div class="inboxes-item-float-right inboxes-item-show-on-hover">
-                <input type="submit" name="approve" value="Approve"/>
-                <input type="submit" name="reject" value="Reject"/>
+                <button class="inboxes-item-button inboxes-item-button-approve"
+                        data-dojo-attach-event="click:approveAction">Approve
+                </button>
+                <button class="inboxes-item-button inboxes-item-button-reject"
+                        data-dojo-attach-event="click:rejectAction">Reject
+                </button>
             </div>
             <h2>
                 ${escapedLine1}
