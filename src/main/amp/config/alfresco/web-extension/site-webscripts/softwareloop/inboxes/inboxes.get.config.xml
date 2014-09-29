@@ -7,7 +7,8 @@
         </inbox>
         <inbox id="for-my-approval" iconClass="foundicon-inbox">
             <query><![CDATA[
-            SELECT d.*, t.* FROM cmis:document as d join cm:titled as t on d.cmis:objectId = t.cmis:objectId WHERE d.cmis:name = 'Project Contract.pdf'            ]]></query>
+            SELECT d.*, t.* FROM cmis:document as d join cm:titled as t on d.cmis:objectId = t.cmis:objectId WHERE d.cmis:createdBy = 'abeecher'
+            ]]></query>
         </inbox>
         <inbox id="overdue" iconClass="foundicon-clock">
             <query><![CDATA[

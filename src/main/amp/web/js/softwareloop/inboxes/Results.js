@@ -20,8 +20,11 @@ define([
             );
         },
 
-        handleResults: function (item) {
-            item.placeAt("results").startup();
+        handleResults: function (items) {
+            this.containerNode.innerHTML = "";
+            for (var i = 0; i < items.length; i++) {
+                items[i].placeAt(this.containerNode).startup();
+            }
         }
 
     });

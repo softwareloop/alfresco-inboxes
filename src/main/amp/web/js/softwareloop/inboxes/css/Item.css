@@ -1,7 +1,5 @@
 .inboxes-item {
-    padding: 20px;
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
+    padding: 20px 0;
     border-bottom: 1px solid grey;
 }
 
@@ -39,6 +37,10 @@
     width: 81px;
     height: 81px;
     background-color: #fed;
+}
+
+.inbox-item-description {
+    min-height: 81px;
 }
 
 .inbox-item-description {

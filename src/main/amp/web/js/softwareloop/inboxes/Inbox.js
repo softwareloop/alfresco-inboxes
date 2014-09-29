@@ -37,7 +37,7 @@ define([
 
         selected: false,
 
-        data: null,
+        items: null,
 
         buildRendering: function () {
             if (this.id) {
@@ -69,9 +69,22 @@ define([
         },
 
         handleData: function (data) {
-            this.data = data;
             var totalResults = data.getElementsByTagName("totalResults")[0].innerHTML;
             this.counterNode.innerHTML = totalResults;
+
+            var i;
+            if (this.items) {
+                for (i = this.items; i < this.items.length; i++) {
+                    this.items[i].destroy();
+                }
+            }
+            this.items = [];
+            var entries = data.getElementsByTagName("entry");
+            for (i = 0; i < entries.length; i++) {
+                var entry = entries[i];
+                var item = new Item(null, null, entry);
+                this.items.push(item);
+            }
             this.postItemsIfReady();
         },
 
@@ -92,13 +105,8 @@ define([
         },
 
         postItemsIfReady: function () {
-            if (this.data && this.selected) {
-                var entries = this.data.getElementsByTagName("entry");
-                for (var i = 0; i < entries.length; i++) {
-                    var entry = entries[i];
-                    var item = new Item(null, null, entry);
-                    topic.publish("/inboxes/results", item);
-                }
+            if (this.items && this.selected) {
+                topic.publish("/inboxes/results", this.items);
             }
         },
 

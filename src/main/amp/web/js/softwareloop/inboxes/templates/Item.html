@@ -7,18 +7,18 @@
                 <input type="submit" name="reject" value="Reject"/>
             </div>
             <h2>
-                ${cmisAttributes.cmis_name}
-                <span class="inboxes-item-tag">${cmisAttributes.cmis_versionLabel}</span>
+                ${escapedLine1}
+                <span class="inboxes-item-tag">${escapedTag}</span>
             </h2>
         </div>
         <div class="inboxes-item-line2">
-            <h3>${cmisAttributes.cm_title}</h3>
+            <h3>${escapedLine2}</h3>
         </div>
         <div class="inboxes-item-line3">
-            Modified just now by ${cmisAttributes.cmis_lastModifiedBy} - 373 KB
+            ${escapedLine3}
         </div>
         <div class="inboxes-item-line4">
-            ${cmisAttributes.cm_description}
+            ${escapedLine4}
         </div>
     </div>
 </div>
