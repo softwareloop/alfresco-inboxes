@@ -54,8 +54,7 @@ define([
                 includeAllowableActions: false,
                 includeRelationships: false,
                 searchAllVersions: false,
-                skipCount: 0,
-                maxItems: 0
+                skipCount: 0
             };
             var _this = this;
             xhr(url, {
