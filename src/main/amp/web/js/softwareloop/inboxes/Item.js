@@ -7,8 +7,9 @@ define([
     'dijit/_WidgetBase',
     'dojo/_base/declare',
     'dojo/text!./templates/Item.html',
-    "dojo/date/locale"
-], function (TemplatedMixin, WidgetBase, declare, template, locale) {
+    "dojo/date/locale",
+    "alfresco/dialogs/AlfDialog"
+], function (TemplatedMixin, WidgetBase, declare, template, locale, AlfDialog) {
     return declare([WidgetBase, TemplatedMixin], {
         templateString: template,
 
@@ -120,11 +121,34 @@ define([
         },
 
         approveAction: function () {
-            alert("Document approved");
+            this.showDialog(
+                "Document approved",
+                    "This is just a stub action. " +
+                    "To provide a real implementation you should customize " +
+                    "Item.approveAction()"
+            );
         },
 
         rejectAction: function () {
-            alert("Document rejected");
+            this.showDialog(
+                "Document rejected",
+                    "This is just a stub action. " +
+                    "To provide a real implementation you should customize " +
+                    "Item.rejectAction()"
+            );
+        },
+
+        showDialog: function (title, content) {
+            var myDialog = new AlfDialog({
+                title: title,
+                content: content,
+                style: "width: 300px"
+            });
+            myDialog.on("hide", function () {
+                location.reload(false);
+            });
+            myDialog.show();
         }
+
     });
 });
