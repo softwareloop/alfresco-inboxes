@@ -48,8 +48,16 @@ for (index in groups) {
 var results = {
     name: "alfresco/layout/VerticalWidgets",
     config: {
-        id: "results",
-        width: "70%"
+        id: "results-container",
+        width: "70%",
+        widgets: [
+            {
+                name: "softwareloop/inboxes/Results",
+                config: {
+                    id: "results"
+                }
+            }
+        ]
     }
 };
 

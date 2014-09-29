@@ -13,8 +13,10 @@ define([
     "dojo/dom-class",
     "dijit/registry",
     "dojo/hash",
-    "./Item"
-], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, Item) {
+    "./Item",
+    "dojo/_base/lang",
+    "dojo/topic"
+], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, Item, lang, topic) {
     return declare([WidgetBase, TemplatedMixin, Core, AttachMixin], {
         templateString: template,
 
@@ -32,6 +34,10 @@ define([
         iconClass: "",
 
         query: null,
+
+        selected: false,
+
+        data: null,
 
         buildRendering: function () {
             if (this.id) {
@@ -55,26 +61,45 @@ define([
             xhr(url, {
                 handleAs: "xml",
                 query: queryObject
-            }).then(function (data) {
-                var totalResults = data.getElementsByTagName("totalResults")[0].innerHTML;
-                _this.counterNode.innerHTML = totalResults;
-            }, function (err) {
-                _this.counterNode.innerHTML = "ERR";
-            });
+            }).then(
+                lang.hitch(this, this.handleData),
+                function (err) {
+                    _this.counterNode.innerHTML = "ERR";
+                });
+        },
+
+        handleData: function (data) {
+            this.data = data;
+            var totalResults = data.getElementsByTagName("totalResults")[0].innerHTML;
+            this.counterNode.innerHTML = totalResults;
+            this.postItemsIfReady();
         },
 
         unselect: function () {
+            this.selected = false;
             domClass.remove(this.domNode, "inboxes-selected");
         },
 
         select: function () {
+            this.selected = true;
             domClass.add(this.domNode, "inboxes-selected");
             var parent = registry.getEnclosingWidget(this.domNode.parentNode);
             var fullTitle = parent.title + " \u00bb " + this.title;
             this.alfPublish("ALF_UPDATE_PAGE_TITLE", {
                 title: fullTitle
             });
-            new Item().placeAt("results").startup();
+            this.postItemsIfReady();
+        },
+
+        postItemsIfReady: function () {
+            if (this.data && this.selected) {
+                var entries = this.data.getElementsByTagName("entry");
+                for (var i = 0; i < entries.length; i++) {
+                    var entry = entries[i];
+                    var item = new Item(null, null, entry);
+                    topic.publish("/inboxes/results", item);
+                }
+            }
         },
 
         clickHandler: function () {
