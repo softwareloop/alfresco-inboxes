@@ -9,8 +9,9 @@ define([
     'dojo/text!./templates/Item.html',
     "dojo/date/locale",
     "alfresco/dialogs/AlfDialog",
-    "alfresco/core/Core"
-], function (TemplatedMixin, WidgetBase, declare, template, locale, AlfDialog, Core) {
+    "alfresco/core/Core",
+    "dojo/_base/lang"
+], function (TemplatedMixin, WidgetBase, declare, template, locale, AlfDialog, Core, lang) {
     return declare([WidgetBase, TemplatedMixin, Core], {
         templateString: template,
 
@@ -32,14 +33,16 @@ define([
         entryAttributes: null,
 
         previewUrl: "",
+        downloadUrl: "",
         escapedLine1: "",
         escapedLine2: "",
         escapedLine3: "",
         escapedLine4: "",
         escapedTag: "",
 
-        approveString: "approve",
-        rejectString: "reject",
+        approveLabel: "approve",
+        rejectLabel: "reject",
+        downloadLabel: "download",
 
         postMixInProperties: function () {
             this.bindToEntry();
@@ -92,10 +95,21 @@ define([
         },
 
         composeLines: function () {
-            this.previewUrl = Alfresco.constants.PROXY_URI +
-                "api/node/workspace/SpacesStore/" +
-                this.entryId +
-                "/content/thumbnails/doclib?c=queue&ph=true&lastModified=1";
+            this.previewUrl = lang.replace(
+                "{proxyUri}api/node/workspace/SpacesStore/{entryId}/content/thumbnails/doclib?c=queue&ph=true&lastModified=1",
+                {
+                    proxyUri: Alfresco.constants.PROXY_URI,
+                    entryId: this.entryId
+                }
+            );
+            this.downloadUrl = lang.replace(
+                "{proxyUri}api/node/content/workspace/SpacesStore/{entryId}/{filename}?a=true",
+                {
+                    proxyUri: Alfresco.constants.PROXY_URI,
+                    entryId: this.entryId,
+                    filename: encodeURIComponent(this.entryAttributes.cmis_name)
+                }
+            );
             this.escapedLine1 = this.encodeHTML(this.entryAttributes.cmis_name);
             if (!this.escapedLine1) {
                 this.escapedLine1 = "";
@@ -105,14 +119,13 @@ define([
                 this.escapedLine2 = "";
             }
             var line3 = this.message(
-                "modified.on.by.size",
+                "modified.on.by",
                 {
                     date: locale.format(this.entryAttributes.cmis_lastModificationDate, {
                         formatLength: "medium",
                         locale: Alfresco.constants.JS_LOCALE.substring(0, 2)
                     }),
-                    user: this.entryAttributes.cmis_lastModifiedBy,
-                    size: this.getHumanSize(this.entryAttributes.cmis_contentStreamLength)
+                    user: this.entryAttributes.cmis_lastModifiedBy
                 }
             );
             this.escapedLine3 = this.encodeHTML(line3);
@@ -131,14 +144,21 @@ define([
             if (!this.escapedTag) {
                 this.escapedTag = "";
             }
+
+            this.downloadLabel = this.message(
+                "download.size",
+                {
+                    size: this.getHumanSize(this.entryAttributes.cmis_contentStreamLength)
+                }
+            );
         },
 
         buildRendering: function () {
-            if (this.approveString) {
-                this.approveString = this.message(this.approveString);
+            if (this.approveLabel) {
+                this.approveLabel = this.message(this.approveLabel);
             }
-            if (this.rejectString) {
-                this.rejectString = this.message(this.rejectString);
+            if (this.rejectLabel) {
+                this.rejectLabel = this.message(this.rejectLabel);
             }
             this.inherited(arguments);
         },

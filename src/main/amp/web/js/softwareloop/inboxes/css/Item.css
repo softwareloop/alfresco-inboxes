@@ -65,3 +65,15 @@
     background-color: #f04e32;
     border-color: #888;
 }
+
+.download-link {
+    background-image: url(/share/res/components/documentlibrary/actions/document-download-16.png);
+    background-position: 4px 1px;
+    background-repeat: no-repeat;
+    padding: 1px 4px 1px 24px;
+    border: 1px solid transparent;
+}
+
+.download-link:hover {
+    border-color: #888;
+}
