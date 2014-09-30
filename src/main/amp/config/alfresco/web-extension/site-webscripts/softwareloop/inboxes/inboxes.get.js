@@ -41,6 +41,10 @@ for (index in groups) {
                 query: String(groupInbox.query)
             }
         };
+        var itemClass = String(groupInbox.@itemClass);
+        if (itemClass) {
+            inboxWidget.config.itemClass = itemClass;
+        }
         groupWidget.config.widgets.push(inboxWidget);
     }
 }

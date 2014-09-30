@@ -13,10 +13,9 @@ define([
     "dojo/dom-class",
     "dijit/registry",
     "dojo/hash",
-    "./Item",
     "dojo/_base/lang",
     "dojo/topic"
-], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, Item, lang, topic) {
+], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, lang, topic) {
     return declare([WidgetBase, TemplatedMixin, Core, AttachMixin], {
         templateString: template,
 
@@ -26,6 +25,7 @@ define([
 
         cssRequirements: [
             {cssFile: "./css/Inbox.css"},
+            {cssFile: "./css/Item.css"}, // This is required because Alfresco won't detect css requirements of classes that are loaded dynamically
             {cssFile: "/components/softwareloop/inboxes/zurb-foundation-icons/general_foundicons.css"}
         ],
 
@@ -38,6 +38,8 @@ define([
         selected: false,
 
         items: null,
+
+        itemClass: "softwareloop/inboxes/Item",
 
         buildRendering: function () {
             if (this.id) {
@@ -77,19 +79,22 @@ define([
                     this.items[i].destroy();
                 }
             }
-            this.items = [];
-            try {
-                var entries = data.getElementsByTagName("entry");
-                for (i = 0; i < entries.length; i++) {
-                    var entry = entries[i];
-                    var item = new Item({entry: entry});
-                    this.items.push(item);
+            var _this = this;
+            require([this.itemClass], function (itemClass) {
+                try {
+                    _this.items = [];
+                    var entries = data.getElementsByTagName("entry");
+                    for (i = 0; i < entries.length; i++) {
+                        var entry = entries[i];
+                        var item = new itemClass({entry: entry});
+                        _this.items.push(item);
+                    }
+                    _this.postItemsIfReady();
+                } catch (err) {
+                    console.log(this.title, data);
+                    throw err;
                 }
-            } catch (err) {
-                console.log(this.title, data);
-                throw err;
-            }
-            this.postItemsIfReady();
+            });
         },
 
         unselect: function () {
