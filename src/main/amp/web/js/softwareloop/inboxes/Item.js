@@ -89,7 +89,7 @@ define([
             this.previewUrl = Alfresco.constants.PROXY_URI +
                 "api/node/workspace/SpacesStore/" +
                 this.entryId +
-                "/content/thumbnails/doclib?c=queue&ph=true&lastModified=1"
+                "/content/thumbnails/doclib?c=queue&ph=true&lastModified=1";
             this.escapedLine1 = this._escapeValue(this.entryAttributes.cmis_name);
             this.escapedLine2 = this._escapeValue(this.entryAttributes.cm_title);
             var line3 = "Modified on " +
@@ -97,7 +97,7 @@ define([
                 " by " +
                 this.entryAttributes.cmis_lastModifiedBy +
                 " - " +
-                this.entryAttributes.cmis_contentStreamLength;
+                this.getHumanSize(this.entryAttributes.cmis_contentStreamLength);
             this.escapedLine3 = this._escapeValue(line3);
             this.escapedLine4 = this._escapeValue(this.entryAttributes.cm_description);
             this.escapedTag = this._escapeValue(this.entryAttributes.cmis_versionLabel);
@@ -148,6 +148,15 @@ define([
                 location.reload(false);
             });
             myDialog.show();
+        },
+
+        sizePrefixes: " KMGTPEZYXWVU",
+
+        getHumanSize: function (size) {
+            if (size <= 0) return '0';
+            var t2 = Math.min(Math.floor(Math.log(size) / Math.log(1024)), 12);
+            return (Math.round(size * 10 / Math.pow(1024, t2)) / 10) +
+                this.sizePrefixes.charAt(t2).replace(' ', '') + 'B';
         }
 
     });
