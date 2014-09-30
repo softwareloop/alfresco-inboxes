@@ -37,6 +37,9 @@ define([
         escapedLine4: "",
         escapedTag: "",
 
+        approveString: "approve",
+        rejectString: "reject",
+
         constructor: function (params, srcNodeRef, entry) {
             this.bindToEntry(entry);
             this.composeLines();
@@ -107,6 +110,16 @@ define([
             this.escapedLine3 = this.encodeHTML(line3);
             this.escapedLine4 = this.encodeHTML(this.entryAttributes.cm_description);
             this.escapedTag = this.encodeHTML(this.entryAttributes.cmis_versionLabel);
+        },
+
+        buildRendering: function () {
+            if (this.approveString) {
+                this.approveString = this.message(this.approveString);
+            }
+            if (this.rejectString) {
+                this.rejectString = this.message(this.rejectString);
+            }
+            this.inherited(arguments);
         },
 
         approveAction: function () {
