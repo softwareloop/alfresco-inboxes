@@ -8,9 +8,10 @@ define([
     'dojo/_base/declare',
     'dojo/text!./templates/Item.html',
     "dojo/date/locale",
-    "alfresco/dialogs/AlfDialog"
-], function (TemplatedMixin, WidgetBase, declare, template, locale, AlfDialog) {
-    return declare([WidgetBase, TemplatedMixin], {
+    "alfresco/dialogs/AlfDialog",
+    "alfresco/core/Core"
+], function (TemplatedMixin, WidgetBase, declare, template, locale, AlfDialog, Core) {
+    return declare([WidgetBase, TemplatedMixin, Core], {
         templateString: template,
 
         i18nRequirements: [
@@ -90,34 +91,22 @@ define([
                 "api/node/workspace/SpacesStore/" +
                 this.entryId +
                 "/content/thumbnails/doclib?c=queue&ph=true&lastModified=1";
-            this.escapedLine1 = this._escapeValue(this.entryAttributes.cmis_name);
-            this.escapedLine2 = this._escapeValue(this.entryAttributes.cm_title);
-            var line3 = "Modified on " +
-                this.entryAttributes.cmis_lastModificationDate +
-                " by " +
-                this.entryAttributes.cmis_lastModifiedBy +
-                " - " +
-                this.getHumanSize(this.entryAttributes.cmis_contentStreamLength);
-            this.escapedLine3 = this._escapeValue(line3);
-            this.escapedLine4 = this._escapeValue(this.entryAttributes.cm_description);
-            this.escapedTag = this._escapeValue(this.entryAttributes.cmis_versionLabel);
-        },
-
-        /* Borrowed from dojo 1.10 */
-        _escapeValue: function (/*String*/ val) {
-            if (val) {
-                return val.replace(/["'<>&]/g, function (val) {
-                    return {
-                        "&": "&amp;",
-                        "<": "&lt;",
-                        ">": "&gt;",
-                        "\"": "&quot;",
-                        "'": "&#x27;"
-                    }[val];
-                });
-            } else {
-                return null;
-            }
+            this.escapedLine1 = this.encodeHTML(this.entryAttributes.cmis_name);
+            this.escapedLine2 = this.encodeHTML(this.entryAttributes.cm_title);
+            var line3 = this.message(
+                "modified.on.by.size",
+                {
+                    date: locale.format(this.entryAttributes.cmis_lastModificationDate, {
+                        formatLength: "medium",
+                        locale: Alfresco.constants.JS_LOCALE.substring(0, 2)
+                    }),
+                    user: this.entryAttributes.cmis_lastModifiedBy,
+                    size: this.getHumanSize(this.entryAttributes.cmis_contentStreamLength)
+                }
+            );
+            this.escapedLine3 = this.encodeHTML(line3);
+            this.escapedLine4 = this.encodeHTML(this.entryAttributes.cm_description);
+            this.escapedTag = this.encodeHTML(this.entryAttributes.cmis_versionLabel);
         },
 
         approveAction: function () {
