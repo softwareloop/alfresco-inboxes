@@ -78,11 +78,16 @@ define([
                 }
             }
             this.items = [];
-            var entries = data.getElementsByTagName("entry");
-            for (i = 0; i < entries.length; i++) {
-                var entry = entries[i];
-                var item = new Item(null, null, entry);
-                this.items.push(item);
+            try {
+                var entries = data.getElementsByTagName("entry");
+                for (i = 0; i < entries.length; i++) {
+                    var entry = entries[i];
+                    var item = new Item({entry: entry});
+                    this.items.push(item);
+                }
+            } catch (err) {
+                console.log(this.title, data);
+                throw err;
             }
             this.postItemsIfReady();
         },

@@ -27,8 +27,9 @@ define([
             selector: "date"
         },
 
+        entry: null,
         entryId: null,
-        entryAttributes: {},
+        entryAttributes: null,
 
         previewUrl: "",
         escapedLine1: "",
@@ -40,43 +41,44 @@ define([
         approveString: "approve",
         rejectString: "reject",
 
-        constructor: function (params, srcNodeRef, entry) {
-            this.bindToEntry(entry);
+        postMixInProperties: function () {
+            this.bindToEntry();
             this.composeLines();
         },
 
-        bindToEntry: function (entry) {
-            this.entryId = entry.getElementsByTagName("id")[0].innerHTML.substring(9);
-            this.parseProperties(entry, "propertyId",
+        bindToEntry: function () {
+            this.entryId = this.entry.getElementsByTagName("id")[0].innerHTML.substring(9);
+            this.entryAttributes = {};
+            this.parseProperties("propertyId",
                 function (stringValue) {
                     return stringValue;
                 }
             );
-            this.parseProperties(entry, "propertyString",
+            this.parseProperties("propertyString",
                 function (stringValue) {
                     return stringValue;
                 }
             );
-            this.parseProperties(entry, "propertyInteger",
+            this.parseProperties("propertyInteger",
                 function (stringValue) {
                     return parseInt(stringValue);
                 }
             );
-            this.parseProperties(entry, "propertyBoolean",
+            this.parseProperties("propertyBoolean",
                 function (stringValue) {
                     return stringValue === 'true';
                 }
             );
             var _formatOptions = this.formatOptions;
-            this.parseProperties(entry, "propertyDateTime",
+            this.parseProperties("propertyDateTime",
                 function (stringValue) {
                     return locale.parse(stringValue, _formatOptions);
                 }
             );
         },
 
-        parseProperties: function (entry, tagName, converter) {
-            var propertyStrings = entry.getElementsByTagName(tagName);
+        parseProperties: function (tagName, converter) {
+            var propertyStrings = this.entry.getElementsByTagName(tagName);
             for (var i = 0; i < propertyStrings.length; i++) {
                 var propertyString = propertyStrings[i];
                 var cmisAttributeName = propertyString.getAttribute("propertyDefinitionId").replace(":", "_");
@@ -95,7 +97,13 @@ define([
                 this.entryId +
                 "/content/thumbnails/doclib?c=queue&ph=true&lastModified=1";
             this.escapedLine1 = this.encodeHTML(this.entryAttributes.cmis_name);
+            if (!this.escapedLine1) {
+                this.escapedLine1 = "";
+            }
             this.escapedLine2 = this.encodeHTML(this.entryAttributes.cm_title);
+            if (!this.escapedLine2) {
+                this.escapedLine2 = "";
+            }
             var line3 = this.message(
                 "modified.on.by.size",
                 {
@@ -108,8 +116,21 @@ define([
                 }
             );
             this.escapedLine3 = this.encodeHTML(line3);
+            if (!this.escapedLine3) {
+                this.escapedLine3 = "";
+            }
             this.escapedLine4 = this.encodeHTML(this.entryAttributes.cm_description);
-            this.escapedTag = this.encodeHTML(this.entryAttributes.cmis_versionLabel);
+            if (!this.escapedLine4) {
+                this.escapedLine4 = "";
+            }
+            var versionLabel = this.entryAttributes.cmis_versionLabel;
+            if ("0.0" === versionLabel) {
+                versionLabel = "1.0";
+            }
+            this.escapedTag = this.encodeHTML(versionLabel);
+            if (!this.escapedTag) {
+                this.escapedTag = "";
+            }
         },
 
         buildRendering: function () {
