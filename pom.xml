@@ -5,10 +5,25 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.softwareloop</groupId>
     <artifactId>alfresco-inboxes</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>alfresco-inboxes</name>
     <packaging>amp</packaging>
     <description>An inbox view for Alfresco implemented using the Aikau framework</description>
+    <url>http://softwareloop.com/</url>
+    <licenses>
+        <license>
+            <name>GNU LESSER GENERAL PUBLIC LICENSE, Version 3</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
+            <distribution>repo</distribution>
+            <comments>OSI-approved license</comments>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Paolo Predonzani</name>
+            <email>paolo.predonzani@gmail.com</email>
+        </developer>
+    </developers>
 
     <parent>
         <groupId>org.alfresco.maven</groupId>
