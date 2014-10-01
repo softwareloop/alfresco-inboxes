@@ -15,8 +15,9 @@ define([
     "dojo/hash",
     "dojo/_base/lang",
     "dojo/topic",
-    "softwareloop/compatibility/browser"
-], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, lang, topic, browser) {
+    "softwareloop/compatibility/browser",
+    "dojo/_base/array"
+], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, lang, topic, browser, array) {
     return declare([WidgetBase, TemplatedMixin, Core, AttachMixin], {
         templateString: template,
 
@@ -38,7 +39,7 @@ define([
 
         selected: false,
 
-        items: null,
+        data: null,
 
         itemClass: "softwareloop/inboxes/Item",
 
@@ -59,15 +60,16 @@ define([
                 searchAllVersions: false,
                 skipCount: 0
             };
-            var _this = this;
             xhr(url, {
                 handleAs: "xml",
                 query: queryObject
             }).then(
                 lang.hitch(this, this.handleData),
-                function (err) {
-                    _this.counterNode.innerHTML = "ERR";
-                });
+                lang.hitch(this, function (err) {
+                    this.counterNode.innerHTML = "ERR";
+                    console.log(err.message);
+                })
+            );
         },
 
         handleData: function (data) {
@@ -76,28 +78,26 @@ define([
             var totalResults = totalResultsNodes[0].firstChild.nodeValue;
             this.counterNode.innerHTML = totalResults;
 
-            var i;
-            if (this.items) {
-                for (i = this.items; i < this.items.length; i++) {
-                    this.items[i].destroy();
-                }
-            }
-            var _this = this;
-            require([this.itemClass], function (itemClass) {
+            this.data = data;
+            this.postItemsIfReady();
+        },
+
+        postItems: function () {
+            require([this.itemClass], lang.hitch(this, function (itemClass) {
                 try {
-                    _this.items = [];
-                    var entries = data.getElementsByTagName("entry");
-                    for (i = 0; i < entries.length; i++) {
-                        var entry = entries[i];
+                    var i;
+                    var items = [];
+                    var entries = this.data.getElementsByTagName("entry");
+                    array.forEach(entries, function (entry) {
                         var item = new itemClass({entry: entry});
-                        _this.items.push(item);
-                    }
-                    _this.postItemsIfReady();
+                        items.push(item);
+                    });
+                    topic.publish("/inboxes/results", items);
                 } catch (err) {
-                    console.log(this.title, data);
+                    console.log(this.title, this.data);
                     throw err;
                 }
-            });
+            }));
         },
 
         unselect: function () {
@@ -117,8 +117,8 @@ define([
         },
 
         postItemsIfReady: function () {
-            if (this.items && this.selected) {
-                topic.publish("/inboxes/results", this.items);
+            if (this.data && this.selected) {
+                this.postItems();
             }
         },
 

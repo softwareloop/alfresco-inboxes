@@ -3,8 +3,10 @@ define([
     'dojo/_base/declare',
     'dojo/text!./templates/Results.html',
     "dojo/_base/lang",
-    "dojo/topic"
-], function (ProcessWidgets, declare, template, lang, topic) {
+    "dojo/topic",
+    "dijit/registry",
+    "dojo/_base/array"
+], function (ProcessWidgets, declare, template, lang, topic, registry, array) {
     return declare([ProcessWidgets], {
         cssRequirements: [
             {cssFile: "./css/Results.css"}
@@ -21,10 +23,15 @@ define([
         },
 
         handleResults: function (items) {
-            this.containerNode.innerHTML = "";
-            for (var i = 0; i < items.length; i++) {
-                items[i].placeAt(this.containerNode).startup();
-            }
+            var containerNode = this.containerNode;
+            var widgets = registry.findWidgets(containerNode);
+            array.forEach(widgets, function (widget) {
+                widget.destroyRecursive(true);
+            });
+            containerNode.innerHTML = "";
+            array.forEach(items, function (item) {
+                item.placeAt(containerNode).startup();
+            });
         }
 
     });
