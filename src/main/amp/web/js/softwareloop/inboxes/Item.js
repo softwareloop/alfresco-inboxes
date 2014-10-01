@@ -10,8 +10,9 @@ define([
     "dojo/date/locale",
     "alfresco/dialogs/AlfDialog",
     "alfresco/core/Core",
-    "dojo/_base/lang"
-], function (TemplatedMixin, WidgetBase, declare, template, locale, AlfDialog, Core, lang) {
+    "dojo/_base/lang",
+    "softwareloop/compatibility/browser"
+], function (TemplatedMixin, WidgetBase, declare, template, locale, AlfDialog, Core, lang, browser) {
     return declare([WidgetBase, TemplatedMixin, Core], {
         templateString: template,
 
@@ -50,7 +51,7 @@ define([
         },
 
         bindToEntry: function () {
-            this.entryId = this.entry.getElementsByTagName("id")[0].innerHTML.substring(9);
+            this.entryId = this.entry.getElementsByTagName("id")[0].firstChild.nodeValue.substring(9);
             this.entryAttributes = {};
             this.parseProperties("propertyId",
                 function (stringValue) {
@@ -81,14 +82,16 @@ define([
         },
 
         parseProperties: function (tagName, converter) {
-            var propertyStrings = this.entry.getElementsByTagName(tagName);
+            var propertyStrings =
+                browser.getElementsByTagName(this.entry, "cmis", tagName);
             for (var i = 0; i < propertyStrings.length; i++) {
                 var propertyString = propertyStrings[i];
-                var cmisAttributeName = propertyString.getAttribute("propertyDefinitionId").replace(":", "_");
-                var valueNode = propertyString.getElementsByTagName("value");
+                var cmisAttributeName =
+                    propertyString.getAttribute("propertyDefinitionId").replace(":", "_");
+                var valueNode = browser.getElementsByTagName(propertyString, "cmis", "value");
                 var cmisAttributeValue = null;
                 if (valueNode && valueNode.length > 0) {
-                    cmisAttributeValue = converter(valueNode[0].innerHTML);
+                    cmisAttributeValue = converter(valueNode[0].firstChild.nodeValue);
                 }
                 this.entryAttributes[cmisAttributeName] = cmisAttributeValue;
             }

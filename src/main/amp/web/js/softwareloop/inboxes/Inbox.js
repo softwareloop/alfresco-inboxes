@@ -14,8 +14,9 @@ define([
     "dijit/registry",
     "dojo/hash",
     "dojo/_base/lang",
-    "dojo/topic"
-], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, lang, topic) {
+    "dojo/topic",
+    "softwareloop/compatibility/browser"
+], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, lang, topic, browser) {
     return declare([WidgetBase, TemplatedMixin, Core, AttachMixin], {
         templateString: template,
 
@@ -70,7 +71,9 @@ define([
         },
 
         handleData: function (data) {
-            var totalResults = data.getElementsByTagName("totalResults")[0].innerHTML;
+            var totalResultsNodes =
+                browser.getElementsByTagName(data, "opensearch", "totalResults");
+            var totalResults = totalResultsNodes[0].firstChild.nodeValue;
             this.counterNode.innerHTML = totalResults;
 
             var i;
