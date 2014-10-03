@@ -1,8 +1,12 @@
 # alfresco-inboxes
 
-An inbox view for Alfresco implemented using the Aikau framework.
+An inboxes plugin for Alfresco implemented using the Aikau framework.
 
 ![alfresco-inboxes-800](https://cloud.githubusercontent.com/assets/6525590/4476717/52ac06b2-4978-11e4-93ed-c1357bb23415.png)
+
+Documentation:
+
+ * [Introduction](http://softwareloop.com/inbox-plugin-for-alfresco-using-the-aikau-framework/)
 
 ## License
 
