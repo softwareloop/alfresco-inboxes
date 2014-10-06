@@ -11,8 +11,9 @@ define([
     "alfresco/dialogs/AlfDialog",
     "alfresco/core/Core",
     "dojo/_base/lang",
-    "softwareloop/compatibility/browser"
-], function (TemplatedMixin, WidgetBase, declare, template, locale, AlfDialog, Core, lang, browser) {
+    "softwareloop/util/browser",
+    "softwareloop/util/cmis"
+], function (TemplatedMixin, WidgetBase, declare, template, locale, AlfDialog, Core, lang, browser, cmis) {
     return declare([WidgetBase, TemplatedMixin, Core], {
         templateString: template,
 
@@ -24,10 +25,6 @@ define([
             {cssFile: "./css/Item.css"}
         ],
 
-        formatOptions: {
-            datePattern: "yyyy-MM-ddTHH:mm:ss.SSSZZ",
-            selector: "date"
-        },
 
         entry: null,
         entryId: null,
@@ -63,22 +60,14 @@ define([
                     return stringValue;
                 }
             );
-            this.parseProperties("propertyInteger",
-                function (stringValue) {
-                    return parseInt(stringValue);
-                }
-            );
+            this.parseProperties("propertyInteger", parseInt);
+
             this.parseProperties("propertyBoolean",
                 function (stringValue) {
                     return stringValue === 'true';
                 }
             );
-            var _formatOptions = this.formatOptions;
-            this.parseProperties("propertyDateTime",
-                function (stringValue) {
-                    return locale.parse(stringValue, _formatOptions);
-                }
-            );
+            this.parseProperties("propertyDateTime", cmis.parseDate);
         },
 
         parseProperties: function (tagName, converter) {

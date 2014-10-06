@@ -12,6 +12,7 @@ var inboxes = {
     }
 };
 
+var weekStartOffset = Number(webscriptConfig.@weekStartOffset);
 var defaultInboxClass = "softwareloop/inboxes/Inbox";
 var groups = webscriptConfig.group;
 var group;
@@ -44,7 +45,8 @@ for (index in groups) {
             config: {
                 id: String(groupInbox.@id),
                 iconClass: String(groupInbox.@iconClass),
-                query: String(groupInbox.query)
+                query: String(groupInbox.query),
+                weekStartOffset: weekStartOffset
             }
         };
         var itemClass = String(groupInbox.@itemClass);

@@ -15,9 +15,10 @@ define([
     "dojo/hash",
     "dojo/_base/lang",
     "dojo/topic",
-    "softwareloop/compatibility/browser",
+    "softwareloop/util/browser",
+    "softwareloop/util/cmis",
     "dojo/_base/array"
-], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, lang, topic, browser, array) {
+], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, lang, topic, browser, cmis, array) {
     return declare([WidgetBase, TemplatedMixin, Core, AttachMixin], {
         templateString: template,
 
@@ -43,6 +44,8 @@ define([
 
         itemClass: "softwareloop/inboxes/Item",
 
+        weekStartOffset: 0,
+
         buildRendering: function () {
             if (this.id) {
                 this.title = this.message(this.id);
@@ -53,16 +56,9 @@ define([
         postCreate: function () {
             this.inherited(arguments);
             var url = Alfresco.constants.PROXY_URI + "cmis/query";
-            var queryObject = {
-                q: this.query,
-                includeAllowableActions: false,
-                includeRelationships: false,
-                searchAllVersions: false,
-                skipCount: 0
-            };
             xhr(url, {
                 handleAs: "xml",
-                query: queryObject
+                query: this.getCmisQueryObject()
             }).then(
                 lang.hitch(this, this.handleData),
                 lang.hitch(this, function (err) {
@@ -70,6 +66,46 @@ define([
                     console.log(err.message);
                 })
             );
+        },
+
+        getCmisQueryObject: function () {
+            var cmisQuery = lang.replace(this.query, this.getCmisQueryParameters());
+            return {
+                q: cmisQuery,
+                includeAllowableActions: false,
+                includeRelationships: false,
+                searchAllVersions: false,
+                skipCount: 0
+            };
+        },
+
+        getCmisQueryParameters: function () {
+            var now = new Date();
+            var y = now.getFullYear();
+            var m = now.getMonth();
+            var d = now.getDate();
+            var dov = now.getDay() - this.weekStartOffset;
+            var todayStart = new Date(y, m, d);
+            var todayEnd = new Date(y, m, d + 1);
+            var weekStart = new Date(y, m, d - dov);
+            var weekEnd = new Date(y, m, d - dov + 7);
+            var monthStart = new Date(y, m, 1);
+            var monthEnd = new Date(y, m + 1, 1);
+            var yearStart = new Date(y, 0, 1);
+            var yearEnd = new Date(y + 1, 0, 1);
+            result = {
+                userName: Alfresco.constants.USERNAME,
+                now: cmis.formatDate(now),
+                todayStart: cmis.formatDate(todayStart),
+                todayEnd: cmis.formatDate(todayEnd),
+                weekStart: cmis.formatDate(weekStart),
+                weekEnd: cmis.formatDate(weekEnd),
+                monthStart: cmis.formatDate(monthStart),
+                monthEnd: cmis.formatDate(monthEnd),
+                yearStart: cmis.formatDate(yearStart),
+                yearEnd: cmis.formatDate(yearEnd)
+            };
+            return result;
         },
 
         handleData: function (data) {
