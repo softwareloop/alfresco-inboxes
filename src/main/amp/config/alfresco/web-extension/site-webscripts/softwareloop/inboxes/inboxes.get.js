@@ -6,6 +6,8 @@ var webscriptConfig = new XML(config.script);
 
 var inboxes = {
     name: "softwareloop/inboxes/Inboxes",
+    align: "sidebar",
+    widthPx: 340,
     config: {
         width: "30%",
         widgets: []
