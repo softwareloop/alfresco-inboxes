@@ -12,12 +12,14 @@ var inboxes = {
     }
 };
 
+var defaultInboxClass = "softwareloop/inboxes/Inbox";
 var groups = webscriptConfig.group;
 var group;
 var index;
 var index2;
 var groupInboxes;
 var groupInbox;
+var groupInboxName;
 var groupWidget;
 var inboxWidget;
 for (index in groups) {
@@ -33,8 +35,12 @@ for (index in groups) {
     groupInboxes = group.inbox;
     for (index2 in groupInboxes) {
         groupInbox = groupInboxes[index2];
+        groupInboxName = String(groupInbox.@inboxClass);
+        if (!groupInboxName) {
+            groupInboxName = defaultInboxClass;
+        }
         inboxWidget = {
-            name: "softwareloop/inboxes/Inbox",
+            name: groupInboxName,
             config: {
                 id: String(groupInbox.@id),
                 iconClass: String(groupInbox.@iconClass),
