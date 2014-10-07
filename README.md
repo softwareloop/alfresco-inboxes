@@ -7,6 +7,7 @@ An inboxes plugin for Alfresco implemented using the Aikau framework. Compatible
 Documentation:
 
  * [Introduction](http://softwareloop.com/inbox-plugin-for-alfresco-using-the-aikau-framework/)
+ * [Basic configuration](http://softwareloop.com/alfresco-inboxes-basic-configuration/)
 
 ## License
 
