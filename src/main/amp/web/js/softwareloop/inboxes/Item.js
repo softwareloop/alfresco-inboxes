@@ -80,7 +80,12 @@ define([
                 var valueNode = browser.getElementsByTagName(propertyString, "cmis", "value");
                 var cmisAttributeValue = null;
                 if (valueNode && valueNode.length > 0) {
-                    cmisAttributeValue = converter(valueNode[0].firstChild.nodeValue);
+                    try {
+                        var nodeValue = valueNode[0].firstChild.nodeValue;
+                        cmisAttributeValue = converter(nodeValue);
+                    } catch (e) {
+                        cmisAttributeValue = null;
+                    }
                 }
                 this.entryAttributes[cmisAttributeName] = cmisAttributeValue;
             }
