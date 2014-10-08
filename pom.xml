@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.softwareloop</groupId>
     <artifactId>alfresco-inboxes</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
     <name>alfresco-inboxes</name>
     <packaging>amp</packaging>
     <description>An inbox view for Alfresco implemented using the Aikau framework</description>
