@@ -92,13 +92,22 @@ define([
         },
 
         composeLines: function () {
-            this.previewUrl = lang.replace(
-                "{proxyUri}api/node/workspace/SpacesStore/{entryId}/content/thumbnails/doclib?c=queue&ph=true&lastModified=1",
-                {
-                    proxyUri: Alfresco.constants.PROXY_URI,
-                    entryId: this.entryId
-                }
-            );
+            if (this.entryAttributes.cmis_baseTypeId === "cmis:document") {
+                this.previewUrl = lang.replace(
+                    "{proxyUri}api/node/workspace/SpacesStore/{entryId}/content/thumbnails/doclib?c=queue&ph=true&lastModified=1",
+                    {
+                        proxyUri: Alfresco.constants.PROXY_URI,
+                        entryId: this.entryId
+                    }
+                );
+            } else {
+                this.previewUrl = lang.replace(
+                    "{urlRescontext}components/documentlibrary/images/folder-64.png",
+                    {
+                        urlRescontext: Alfresco.constants.URL_RESCONTEXT
+                    }
+                );
+            }
             this.downloadUrl = lang.replace(
                 "{proxyUri}api/node/content/workspace/SpacesStore/{entryId}/{filename}?a=true",
                 {
