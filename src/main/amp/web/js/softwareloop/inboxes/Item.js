@@ -11,9 +11,10 @@ define([
     "alfresco/dialogs/AlfDialog",
     "alfresco/core/Core",
     "dojo/_base/lang",
+    "dojo/_base/array",
     "softwareloop/util/browser",
     "softwareloop/util/cmis"
-], function (TemplatedMixin, WidgetBase, declare, template, locale, AlfDialog, Core, lang, browser, cmis) {
+], function (TemplatedMixin, WidgetBase, declare, template, locale, AlfDialog, Core, lang, array, browser, cmis) {
     return declare([WidgetBase, TemplatedMixin, Core], {
         templateString: template,
 
@@ -29,6 +30,7 @@ define([
         entry: null,
         entryId: null,
         entryAttributes: null,
+        entryAttributeArrays: null,
 
         previewUrl: "",
         downloadUrl: "",
@@ -50,6 +52,7 @@ define([
         bindToEntry: function () {
             this.entryId = this.entry.getElementsByTagName("id")[0].firstChild.nodeValue.substring(9);
             this.entryAttributes = {};
+            this.entryAttributeArrays = {};
             this.parseProperties("propertyId",
                 function (stringValue) {
                     return stringValue;
@@ -78,16 +81,27 @@ define([
                 var cmisAttributeName =
                     propertyString.getAttribute("propertyDefinitionId").replace(":", "_");
                 var valueNode = browser.getElementsByTagName(propertyString, "cmis", "value");
-                var cmisAttributeValue = null;
-                if (valueNode && valueNode.length > 0) {
-                    try {
-                        var nodeValue = valueNode[0].firstChild.nodeValue;
-                        cmisAttributeValue = converter(nodeValue);
-                    } catch (e) {
-                        cmisAttributeValue = null;
+                if (valueNode) {
+                    var cmisAttributeValues = [];
+                    array.forEach(valueNode, function (current) {
+                        var cmisAttributeValue = null;
+                        try {
+                            var nodeValue = current.firstChild.nodeValue;
+                            cmisAttributeValue = converter(nodeValue);
+                        } catch (e) {
+                            cmisAttributeValue = null;
+                        }
+                        cmisAttributeValues.push(cmisAttributeValue);
+                    });
+                    this.entryAttributeArrays[cmisAttributeName] = cmisAttributeValues;
+                    if (cmisAttributeValues.length > 0) {
+                        this.entryAttributes[cmisAttributeName] = cmisAttributeValues[0];
+                    } else {
+                        this.entryAttributes[cmisAttributeName] = null;
                     }
+                } else {
+                    this.entryAttributes[cmisAttributeName] = null;
                 }
-                this.entryAttributes[cmisAttributeName] = cmisAttributeValue;
             }
         },
 

@@ -119,6 +119,7 @@ define([
         },
 
         postItems: function () {
+            console.log("Item class", this.itemClass);
             require([this.itemClass], lang.hitch(this, function (itemClass) {
                 try {
                     var i;
@@ -130,8 +131,7 @@ define([
                     });
                     topic.publish("/inboxes/results", items);
                 } catch (err) {
-                    console.log(this.title, this.data);
-                    throw err;
+                    console.log(this.title, this.data, err);
                 }
             }));
         },
