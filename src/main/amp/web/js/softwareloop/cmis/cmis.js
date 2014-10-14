@@ -48,7 +48,6 @@ define([
             for (var cmisAttributeName in entryAttributes) {
                 if (entryAttributes.hasOwnProperty(cmisAttributeName)) {
                     var entryAttribute = entryAttributes[cmisAttributeName];
-                    console.log(entryAttribute);
                     var elementName = "cmis:" + entryAttribute.tagName;
                     xb.openElement(elementName);
                     xb.addAttribute("propertyDefinitionId", cmisAttributeName);

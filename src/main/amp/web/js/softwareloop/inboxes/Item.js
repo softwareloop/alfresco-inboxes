@@ -10,11 +10,8 @@ define([
     "dojo/date/locale",
     "alfresco/dialogs/AlfDialog",
     "alfresco/core/Core",
-    "dojo/_base/lang",
-    "dojo/_base/array",
-    "softwareloop/util/browser",
-    "softwareloop/util/cmis"
-], function (TemplatedMixin, WidgetBase, declare, template, locale, AlfDialog, Core, lang, array, browser, cmis) {
+    "dojo/_base/lang"
+], function (TemplatedMixin, WidgetBase, declare, template, locale, AlfDialog, Core, lang) {
     return declare([WidgetBase, TemplatedMixin, Core], {
         templateString: template,
 
@@ -28,8 +25,6 @@ define([
 
 
         entry: null,
-        entryId: null,
-        entryAttributes: null,
 
         previewUrl: "",
         downloadUrl: "",
@@ -44,71 +39,16 @@ define([
         downloadLabel: "download",
 
         postMixInProperties: function () {
-            this.bindToEntry();
             this.composeLines();
         },
 
-        bindToEntry: function () {
-            this.entryId = this.entry.getElementsByTagName("id")[0].firstChild.nodeValue.substring(9);
-            this.entryAttributes = {};
-            this.parseProperties("propertyId",
-                function (stringValue) {
-                    return stringValue;
-                }
-            );
-            this.parseProperties("propertyString",
-                function (stringValue) {
-                    return stringValue;
-                }
-            );
-            this.parseProperties("propertyInteger", parseInt);
-
-            this.parseProperties("propertyBoolean",
-                function (stringValue) {
-                    return stringValue === 'true';
-                }
-            );
-            this.parseProperties("propertyDateTime", cmis.parseDate);
-        },
-
-        parseProperties: function (tagName, converter) {
-            var propertyStrings =
-                browser.getElementsByTagName(this.entry, "cmis", tagName);
-            for (var i = 0; i < propertyStrings.length; i++) {
-                var propertyString = propertyStrings[i];
-                var cmisAttributeName =
-                    propertyString.getAttribute("propertyDefinitionId");
-                var entryAttribute = {
-                    tagName: tagName,
-                    values: [],
-                    value: function () {
-                        return (this.values.length > 0) ? this.values[0] : null
-                    }
-                };
-                this.entryAttributes[cmisAttributeName] = entryAttribute;
-                var valueNode = browser.getElementsByTagName(propertyString, "cmis", "value");
-                if (valueNode) {
-                    array.forEach(valueNode, function (current) {
-                        var cmisAttributeValue = null;
-                        try {
-                            var nodeValue = current.firstChild.nodeValue;
-                            cmisAttributeValue = converter(nodeValue);
-                        } catch (e) {
-                            cmisAttributeValue = null;
-                        }
-                        entryAttribute.values.push(cmisAttributeValue);
-                    });
-                }
-            }
-        },
-
         composeLines: function () {
-            if (this.entryAttributes["cmis:baseTypeId"].value() === "cmis:document") {
+            if (this.entry.getAttributeValue("cmis:baseTypeId") === "cmis:document") {
                 this.previewUrl = lang.replace(
                     "{proxyUri}api/node/workspace/SpacesStore/{entryId}/content/thumbnails/doclib?c=queue&ph=true&lastModified=1",
                     {
                         proxyUri: Alfresco.constants.PROXY_URI,
-                        entryId: this.entryId
+                        entryId: this.entry.id
                     }
                 );
             } else {
@@ -123,37 +63,37 @@ define([
                 "{proxyUri}api/node/content/workspace/SpacesStore/{entryId}/{filename}?a=true",
                 {
                     proxyUri: Alfresco.constants.PROXY_URI,
-                    entryId: this.entryId,
-                    filename: encodeURIComponent(this.entryAttributes["cmis:name"].value())
+                    entryId: this.entry.id,
+                    filename: encodeURIComponent(this.entry.getAttributeValue("cmis:name"))
                 }
             );
-            this.escapedLine1 = this.encodeHTML(this.entryAttributes["cmis:name"].value());
+            this.escapedLine1 = this.encodeHTML(this.entry.getAttributeValue("cmis:name"));
             if (!this.escapedLine1) {
                 this.escapedLine1 = "";
             }
-            this.escapedLine2 = this.encodeHTML(this.entryAttributes["cm:title"].value());
+            this.escapedLine2 = this.encodeHTML(this.entry.getAttributeValue("cm:title"));
             if (!this.escapedLine2) {
                 this.escapedLine2 = "";
             }
             var line3 = this.message(
                 "modified.on.by",
                 {
-                    date: locale.format(this.entryAttributes["cmis:lastModificationDate"].value(), {
+                    date: locale.format(this.entry.getAttributeValue("cmis:lastModificationDate"), {
                         formatLength: "medium",
                         locale: Alfresco.constants.JS_LOCALE.substring(0, 2)
                     }),
-                    user: this.entryAttributes["cmis:lastModifiedBy"].value()
+                    user: this.entry.getAttributeValue("cmis:lastModifiedBy")
                 }
             );
             this.escapedLine3 = this.encodeHTML(line3);
             if (!this.escapedLine3) {
                 this.escapedLine3 = "";
             }
-            this.escapedLine4 = this.encodeHTML(this.entryAttributes["cm:description"].value());
+            this.escapedLine4 = this.encodeHTML(this.entry.getAttributeValue("cm:description"));
             if (!this.escapedLine4) {
                 this.escapedLine4 = "";
             }
-            var versionLabel = this.entryAttributes["cmis:versionLabel"].value();
+            var versionLabel = this.entry.getAttributeValue("cmis:versionLabel");
             if ("0.0" === versionLabel) {
                 versionLabel = "1.0";
             }
@@ -165,7 +105,7 @@ define([
             this.downloadLabel = this.message(
                 "download.size",
                 {
-                    size: this.getHumanSize(this.entryAttributes["cmis:contentStreamLength"].value())
+                    size: this.getHumanSize(this.entry.getAttributeValue("cmis:contentStreamLength"))
                 }
             );
         },
@@ -185,7 +125,7 @@ define([
                 "Document approved",
                     "This is just a stub action. " +
                     "To provide a real implementation you should customize " +
-                        "Item.approveAction()",
+                    "Item.approveAction()",
                 true
             );
         },
@@ -195,7 +135,7 @@ define([
                 "Document rejected",
                     "This is just a stub action. " +
                     "To provide a real implementation you should customize " +
-                        "Item.rejectAction()",
+                    "Item.rejectAction()",
                 true
             );
         },

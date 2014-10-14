@@ -16,9 +16,10 @@ define([
     "dojo/_base/lang",
     "dojo/topic",
     "softwareloop/util/browser",
-    "softwareloop/util/cmis",
+    "softwareloop/cmis/cmis",
+    "softwareloop/cmis/Entry",
     "dojo/_base/array"
-], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, lang, topic, browser, cmis, array) {
+], function (TemplatedMixin, AttachMixin, WidgetBase, Core, declare, template, xhr, domClass, registry, hash, lang, topic, browser, cmis, Entry, array) {
     return declare([WidgetBase, TemplatedMixin, Core, AttachMixin], {
         templateString: template,
 
@@ -123,8 +124,9 @@ define([
                 try {
                     var i;
                     var items = [];
-                    var entries = this.data.getElementsByTagName("entry");
-                    array.forEach(entries, function (entry) {
+                    var entryNodes = this.data.getElementsByTagName("entry");
+                    array.forEach(entryNodes, function (entryNode) {
+                        var entry = new Entry(entryNode);
                         var item = new itemClass({entry: entry});
                         items.push(item);
                     });
