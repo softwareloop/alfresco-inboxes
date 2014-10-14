@@ -119,7 +119,6 @@ define([
         },
 
         postItems: function () {
-            console.log("Item class", this.itemClass);
             require([this.itemClass], lang.hitch(this, function (itemClass) {
                 try {
                     var i;

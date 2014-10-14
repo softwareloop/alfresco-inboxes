@@ -30,7 +30,6 @@ define([
         entry: null,
         entryId: null,
         entryAttributes: null,
-        entryAttributeArrays: null,
 
         previewUrl: "",
         downloadUrl: "",
@@ -52,7 +51,6 @@ define([
         bindToEntry: function () {
             this.entryId = this.entry.getElementsByTagName("id")[0].firstChild.nodeValue.substring(9);
             this.entryAttributes = {};
-            this.entryAttributeArrays = {};
             this.parseProperties("propertyId",
                 function (stringValue) {
                     return stringValue;
@@ -79,10 +77,17 @@ define([
             for (var i = 0; i < propertyStrings.length; i++) {
                 var propertyString = propertyStrings[i];
                 var cmisAttributeName =
-                    propertyString.getAttribute("propertyDefinitionId").replace(":", "_");
+                    propertyString.getAttribute("propertyDefinitionId");
+                var entryAttribute = {
+                    tagName: tagName,
+                    values: [],
+                    value: function () {
+                        return (this.values.length > 0) ? this.values[0] : null
+                    }
+                };
+                this.entryAttributes[cmisAttributeName] = entryAttribute;
                 var valueNode = browser.getElementsByTagName(propertyString, "cmis", "value");
                 if (valueNode) {
-                    var cmisAttributeValues = [];
                     array.forEach(valueNode, function (current) {
                         var cmisAttributeValue = null;
                         try {
@@ -91,22 +96,14 @@ define([
                         } catch (e) {
                             cmisAttributeValue = null;
                         }
-                        cmisAttributeValues.push(cmisAttributeValue);
+                        entryAttribute.values.push(cmisAttributeValue);
                     });
-                    this.entryAttributeArrays[cmisAttributeName] = cmisAttributeValues;
-                    if (cmisAttributeValues.length > 0) {
-                        this.entryAttributes[cmisAttributeName] = cmisAttributeValues[0];
-                    } else {
-                        this.entryAttributes[cmisAttributeName] = null;
-                    }
-                } else {
-                    this.entryAttributes[cmisAttributeName] = null;
                 }
             }
         },
 
         composeLines: function () {
-            if (this.entryAttributes.cmis_baseTypeId === "cmis:document") {
+            if (this.entryAttributes["cmis:baseTypeId"].value() === "cmis:document") {
                 this.previewUrl = lang.replace(
                     "{proxyUri}api/node/workspace/SpacesStore/{entryId}/content/thumbnails/doclib?c=queue&ph=true&lastModified=1",
                     {
@@ -127,36 +124,36 @@ define([
                 {
                     proxyUri: Alfresco.constants.PROXY_URI,
                     entryId: this.entryId,
-                    filename: encodeURIComponent(this.entryAttributes.cmis_name)
+                    filename: encodeURIComponent(this.entryAttributes["cmis:name"].value())
                 }
             );
-            this.escapedLine1 = this.encodeHTML(this.entryAttributes.cmis_name);
+            this.escapedLine1 = this.encodeHTML(this.entryAttributes["cmis:name"].value());
             if (!this.escapedLine1) {
                 this.escapedLine1 = "";
             }
-            this.escapedLine2 = this.encodeHTML(this.entryAttributes.cm_title);
+            this.escapedLine2 = this.encodeHTML(this.entryAttributes["cm:title"].value());
             if (!this.escapedLine2) {
                 this.escapedLine2 = "";
             }
             var line3 = this.message(
                 "modified.on.by",
                 {
-                    date: locale.format(this.entryAttributes.cmis_lastModificationDate, {
+                    date: locale.format(this.entryAttributes["cmis:lastModificationDate"].value(), {
                         formatLength: "medium",
                         locale: Alfresco.constants.JS_LOCALE.substring(0, 2)
                     }),
-                    user: this.entryAttributes.cmis_lastModifiedBy
+                    user: this.entryAttributes["cmis:lastModifiedBy"].value()
                 }
             );
             this.escapedLine3 = this.encodeHTML(line3);
             if (!this.escapedLine3) {
                 this.escapedLine3 = "";
             }
-            this.escapedLine4 = this.encodeHTML(this.entryAttributes.cm_description);
+            this.escapedLine4 = this.encodeHTML(this.entryAttributes["cm:description"].value());
             if (!this.escapedLine4) {
                 this.escapedLine4 = "";
             }
-            var versionLabel = this.entryAttributes.cmis_versionLabel;
+            var versionLabel = this.entryAttributes["cmis:versionLabel"].value();
             if ("0.0" === versionLabel) {
                 versionLabel = "1.0";
             }
@@ -168,7 +165,7 @@ define([
             this.downloadLabel = this.message(
                 "download.size",
                 {
-                    size: this.getHumanSize(this.entryAttributes.cmis_contentStreamLength)
+                    size: this.getHumanSize(this.entryAttributes["cmis:contentStreamLength"].value())
                 }
             );
         },
@@ -188,7 +185,8 @@ define([
                 "Document approved",
                     "This is just a stub action. " +
                     "To provide a real implementation you should customize " +
-                    "Item.approveAction()"
+                        "Item.approveAction()",
+                true
             );
         },
 
@@ -197,19 +195,22 @@ define([
                 "Document rejected",
                     "This is just a stub action. " +
                     "To provide a real implementation you should customize " +
-                    "Item.rejectAction()"
+                        "Item.rejectAction()",
+                true
             );
         },
 
-        showDialog: function (title, content) {
+        showDialog: function (title, content, reloadOnHide) {
             var myDialog = new AlfDialog({
                 title: title,
                 content: content,
                 style: "width: 300px"
             });
-            myDialog.on("hide", function () {
-                location.reload(false);
-            });
+            if (reloadOnHide) {
+                myDialog.on("hide", function () {
+                    location.reload(false);
+                });
+            }
             myDialog.show();
         },
 
