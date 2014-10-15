@@ -11,7 +11,8 @@ Documentation:
  * [Example CMIS queries](http://softwareloop.com/alfresco-inboxes-example-cmis-queries/)
  * [How to use a different icon font (Font Awesome)](http://softwareloop.com/alfresco-inboxes-how-to-use-a-different-icon-font-awesome/)
  * [How to use bitmap icons](http://softwareloop.com/alfresco-inboxes-how-to-use-bitmap-icons-simple-aikau-customisation/)
-
+ * [How to customise the results view](http://softwareloop.com/alfresco-inboxes-how-to-customise-the-results-view/)
+ 
 ## License
 
 Licensed under the LGPL v3 license (see LICENSE).
