@@ -12,7 +12,9 @@ Documentation:
  * [How to use a different icon font (Font Awesome)](http://softwareloop.com/alfresco-inboxes-how-to-use-a-different-icon-font-awesome/)
  * [How to use bitmap icons](http://softwareloop.com/alfresco-inboxes-how-to-use-bitmap-icons-simple-aikau-customisation/)
  * [How to customise the results view](http://softwareloop.com/alfresco-inboxes-how-to-customise-the-results-view/)
- 
+ * [How to customise the action buttons](http://softwareloop.com/alfresco-inboxes-how-to-customise-action-buttons/)
+ * [Translations](http://softwareloop.com/alfresco-inboxes-translations/)
+   
 ## License
 
 Licensed under the LGPL v3 license (see LICENSE).
