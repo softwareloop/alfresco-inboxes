@@ -4,7 +4,7 @@ define([
     "dojo/request/xhr",
     "softwareloop/util/XmlBuffer"
 ], function (array, locale, xhr, XmlBuffer) {
-    var datePattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    var datePattern = "yyyy-MM-dd'T'HH:mm:ss.SZ";
 
     var formatOptions = {
         datePattern: datePattern,

@@ -2,7 +2,7 @@
     <modules>
         <module>
             <id>alfresco-inboxes</id>
-            <version>1.0</version>
+            <version>${noSnapshotVersion}</version>
             <auto-deploy>true</auto-deploy>
             <configurations>
                 <config evaluator="string-compare" condition="WebFramework"

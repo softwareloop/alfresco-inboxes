@@ -84,6 +84,12 @@ model.jsonModel = {
                 baseClass: "side-margins",
                 widgets: [
                     {
+                        name: "alfresco/html/Spacer",
+                        config: {
+                            height: "14px"
+                        }
+                    },
+                    {
                         name: "alfresco/layout/HorizontalWidgets",
                         config: {
                             widgets: [

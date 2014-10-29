@@ -6,7 +6,6 @@ define([
 ], function (declare, array, cmis, browser) {
     return declare(null, {
         constructor: function (entryNode) {
-            this.id = entryNode.getElementsByTagName("id")[0].firstChild.nodeValue.substring(9);
             this.attributes = {};
             this.parseProperties(entryNode, "propertyId",
                 function (stringValue) {
@@ -26,6 +25,8 @@ define([
                 }
             );
             this.parseProperties(entryNode, "propertyDateTime", cmis.parseDate);
+
+            this.id = this.getAttributeValues("cmis:versionSeriesId");
         },
 
         parseProperties: function (entryNode, tagName, converter) {
