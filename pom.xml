@@ -53,6 +53,7 @@
         <alfresco.client.war.version>4.2.f</alfresco.client.war.version>
         <!-- This controls which properties will be picked in src/test/properties for embedded run -->
         <env>local</env>
+        <maven.tomcat.port>8081</maven.tomcat.port>
     </properties>
 
     <!-- Here we realize the connection with the Alfresco selected platform 
