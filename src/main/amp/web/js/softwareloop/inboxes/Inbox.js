@@ -56,7 +56,7 @@ define([
 
         postCreate: function () {
             this.inherited(arguments);
-            var url = Alfresco.constants.PROXY_URI + "cmis/query";
+            var url = "/share/proxy/alfresco-api/-default-/public/cmis/versions/1.1/atom/query";
             xhr(url, {
                 handleAs: "xml",
                 query: this.getCmisQueryObject()
@@ -74,7 +74,7 @@ define([
             return {
                 q: cmisQuery,
                 includeAllowableActions: false,
-                includeRelationships: false,
+                //includeRelationships: false, // breaks 5.0.b
                 searchAllVersions: false,
                 skipCount: 0
             };
@@ -111,7 +111,7 @@ define([
 
         handleData: function (data) {
             var totalResultsNodes =
-                browser.getElementsByTagName(data, "opensearch", "totalResults");
+                browser.getElementsByTagName(data, "cmisra", "numItems");
             var totalResults = totalResultsNodes[0].firstChild.nodeValue;
             this.counterNode.innerHTML = totalResults;
 
@@ -124,7 +124,7 @@ define([
                 try {
                     var i;
                     var items = [];
-                    var entryNodes = this.data.getElementsByTagName("entry");
+                    var entryNodes = browser.getElementsByTagName(this.data, "atom", "entry");
                     array.forEach(entryNodes, function (entryNode) {
                         var entry = new Entry(entryNode);
                         var item = new itemClass({entry: entry});
