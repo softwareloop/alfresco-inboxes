@@ -2,18 +2,18 @@
 
 An inboxes plugin for Alfresco implemented using the Aikau framework. Compatible with Alfresco 4.2.f and 5.0.a.
 
-![alfresco-inboxes-800](https://cloud.githubusercontent.com/assets/6525590/4476717/52ac06b2-4978-11e4-93ed-c1357bb23415.png)
+![alfresco-inboxes-800](https://github.com/softwareloop/alfresco-inboxes/wiki/images/home/alfresco-inboxes.png)
 
 Documentation:
 
- * [Introduction](http://softwareloop.com/inbox-plugin-for-alfresco-using-the-aikau-framework/)
- * [Basic configuration](http://softwareloop.com/alfresco-inboxes-basic-configuration/)
- * [Example CMIS queries](http://softwareloop.com/alfresco-inboxes-example-cmis-queries/)
- * [How to use a different icon font (Font Awesome)](http://softwareloop.com/alfresco-inboxes-how-to-use-a-different-icon-font-awesome/)
- * [How to use bitmap icons](http://softwareloop.com/alfresco-inboxes-how-to-use-bitmap-icons-simple-aikau-customisation/)
+ * [Introduction](https://github.com/softwareloop/alfresco-inboxes/wiki)
+ * [Basic configuration](https://github.com/softwareloop/alfresco-inboxes/wiki/Basic-configuration)
+ * [Example CMIS queries](https://github.com/softwareloop/alfresco-inboxes/wiki/Example-CMIS-queries)
+ * [How to use a different icon font (Font Awesome)](https://github.com/softwareloop/alfresco-inboxes/wiki/How-to-use-a-different-icon-font)
+ * [How to use bitmap icons](https://github.com/softwareloop/alfresco-inboxes/wiki/How-to-use-bitmap-icons)
  * [How to customise the results view](http://softwareloop.com/alfresco-inboxes-how-to-customise-the-results-view/)
- * [How to customise the action buttons](http://softwareloop.com/alfresco-inboxes-how-to-customise-action-buttons/)
- * [Translations](http://softwareloop.com/alfresco-inboxes-translations/)
+ * [How to customise the action buttons](https://github.com/softwareloop/alfresco-inboxes/wiki/How-to-customise-action-buttons)
+ * [Translations](https://github.com/softwareloop/alfresco-inboxes/wiki/Translations)
    
 ## License
 
